@@ -1,423 +1,408 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <!-- 加入這段可讓網頁在手機上完美呈現，並支援 Web App 全螢幕模式 -->
+    <!-- PWA Web App 必備標籤 (支援 iOS 與 Android) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="遠銀招募">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#FF8FA3">
+    <meta name="theme-color" content="#0F1C2E">
     
-    <title>遠銀理專 招募秘笈</title>
+    <!-- 嵌入式 Manifest，讓 Android 完美識別為 App -->
+    <link rel="manifest" href='data:application/manifest+json;charset=utf-8,{"name":"遠銀理專招募秘笈","short_name":"遠銀招募","display":"standalone","background_color":"#F4F6F8","theme_color":"#0F1C2E","icons":[{"src":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI0Q0QUYzNyIvPjx0ZXh0IHg9IjUwIiB5PSI2NSIgZm9udC1zaXplPSI1MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzBGMUMyRSI+5ouUPC90ZXh0Pjwvc3ZnPg==","sizes":"192x192","type":"image/svg+xml"}]}'>
+    
+    <!-- 提供給 iOS 的桌面圖示 (以 Base64 SVG 替代) -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI0Q0QUYzNyIvPjx0ZXh0IHg9IjUwIiB5PSI2NSIgZm9udC1zaXplPSI1MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzBGMUMyRSI+5ouUPC90ZXh0Pjwvc3ZnPg==">
+
+    <title>遠銀理專 招募秘笈 App</title>
+    
+    <!-- 引入優雅的襯線字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    
     <style>
-        /* 繽紛生活化色系定義 */
+        /* 尊榮高貴色系定義 */
         :root {
-            --bg-gradient: linear-gradient(135deg, #FFD1FF 0%, #FAD0C4 100%);
-            --card-bg: rgba(255, 255, 255, 0.95);
-            --text-dark: #4A4A4A;
-            --text-gray: #7A7A7A;
-            --color-tab1: #FF6B6B; /* 活力紅 */
-            --color-tab2: #4ECDC4; /* 湖水綠 */
-            --color-tab3: #FFD166; /* 陽光黃 */
-            --color-tab4: #A06CD5; /* 薰衣草紫 */
-            --color-tab5: #118AB2; /* 海洋藍 */
+            --primary-navy: #0F1C2E;
+            --luxury-gold: #D4AF37;
+            --gold-light: #F9F2D8;
+            --text-main: #333333;
+            --bg-body: #F4F6F8;
+            --white: #FFFFFF;
         }
 
-        * {
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            font-family: 'Nunito', 'Segoe UI', 'Microsoft JhengHei', sans-serif;
-            background: var(--bg-gradient);
-            color: var(--text-dark);
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding-bottom: 80px; /* 留給底部導覽列的空間 */
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            background: var(--bg-body);
+            color: var(--text-main);
+            margin: 0; padding: 0; min-height: 100vh;
+            display: flex; flex-direction: column;
+            padding-bottom: 90px; /* 留給底部導覽列的空間 */
         }
 
-        /* 頂部生活化 Header */
+        /* 頂部 Header */
         .app-header {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 25px 20px 15px;
+            background: linear-gradient(135deg, var(--primary-navy) 0%, #1A2A42 100%);
+            padding: calc(15px + env(safe-area-inset-top)) 20px 20px;
             text-align: center;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.6);
-            border-radius: 0 0 25px 25px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            border-bottom: 4px solid var(--luxury-gold);
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 6px 20px rgba(15, 28, 46, 0.2);
+            position: sticky; top: 0; z-index: 100;
         }
 
-        .app-header h1 {
-            margin: 0;
-            font-size: 1.6em;
-            color: #FF5A5F;
-            font-weight: 800;
+        .app-header h1 { 
+            margin: 0; 
+            font-size: 1.6em; 
+            color: var(--luxury-gold); 
+            font-family: 'Noto Serif TC', serif;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        }
+        
+        .pwa-hint {
+            font-size: 0.75em; color: #E2C779; background: rgba(255,255,255,0.1);
+            display: inline-block; padding: 4px 12px; border-radius: 12px; margin-top: 8px;
             letter-spacing: 1px;
         }
 
-        .app-header p {
-            margin: 5px 0 0;
-            font-size: 0.9em;
-            color: #666;
-        }
-
         /* 內容容器 */
-        .content-container {
-            padding: 20px 15px;
-            flex: 1;
-            max-width: 800px;
-            margin: 0 auto;
+        .content-container { padding: 25px 15px; flex: 1; max-width: 800px; margin: 0 auto; width: 100%; }
+
+        .tab-content { display: none; animation: fadeIn 0.5s ease; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .section-title { 
+            font-size: 1.3em; 
+            font-weight: bold; 
+            margin-bottom: 20px; 
+            color: var(--primary-navy); 
+            text-align: center; 
+            font-family: 'Noto Serif TC', serif;
+            border-bottom: 1px solid var(--luxury-gold);
+            padding-bottom: 10px;
+            display: inline-block;
             width: 100%;
         }
 
-        .tab-content {
-            display: none;
-            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* 圓潤繽紛卡片設計 (手風琴) */
+        /* ========================================= */
+        /* ★★★ 核心：金邊互動框架設計 (全預設收合) ★★★ */
+        /* ========================================= */
         details {
-            background: var(--card-bg);
-            border-radius: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            background: var(--white);
+            border: 2px solid var(--luxury-gold); 
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
             overflow: hidden;
-            transition: all 0.3s ease;
-            border-left: 6px solid var(--color-tab1);
+            transition: all 0.4s ease;
         }
 
-        details[data-theme="qna"] { border-left-color: var(--color-tab2); }
-        details[data-theme="adv"] { border-left-color: var(--color-tab3); }
-        details[data-theme="bonus"] { border-left-color: var(--color-tab4); }
-        details[data-theme="comp"] { border-left-color: var(--color-tab5); }
+        details:hover {
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+            transform: translateY(-2px);
+        }
 
+        /* 標題區塊：漸層香檳金 */
         summary {
-            font-weight: bold;
-            font-size: 1.1em;
+            font-weight: 800;
             cursor: pointer;
-            padding: 20px 20px 20px 50px;
+            color: var(--primary-navy);
+            padding: 18px 20px 18px 55px; 
             position: relative;
             list-style: none;
+            font-size: 1.1em;
+            background: linear-gradient(135deg, #ffffff 0%, var(--gold-light) 100%);
             outline: none;
-            color: var(--text-dark);
+            transition: all 0.3s ease;
         }
 
         summary::-webkit-details-marker { display: none; }
 
+        /* 左側動態 ＋ 號 */
         summary::before {
-            content: '✨';
+            content: '＋';
             position: absolute;
-            left: 15px;
-            font-size: 1.3em;
+            left: 20px;
+            color: var(--luxury-gold);
+            font-size: 1.6em;
             top: 50%;
             transform: translateY(-50%);
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease, color 0.3s ease;
+            font-weight: bold;
         }
 
-        details[open] summary::before {
-            content: '👇';
-            transform: translateY(-50%) rotate(18deg);
+        /* 點擊展開後的動態變化 (顏色加深、切換為 － 號) */
+        details[open] {
+            border-color: var(--primary-navy);
+            box-shadow: 0 6px 20px rgba(15, 28, 46, 0.2);
         }
 
         details[open] summary {
-            background: rgba(0,0,0,0.02);
-            border-bottom: 1px dashed #ddd;
+            background: var(--primary-navy);
+            color: var(--luxury-gold);
         }
 
+        details[open] summary::before {
+            content: '－';
+            color: var(--luxury-gold);
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        /* 展開的詳細文字內容區塊 */
         .detail-content {
-            padding: 20px;
+            padding: 20px 25px;
             font-size: 1.05em;
-            line-height: 1.7;
-            color: #555;
-            background: #fff;
+            line-height: 1.8;
+            color: #444;
+            background-color: #FAFAFA;
+            border-top: 2px solid var(--luxury-gold);
         }
 
         .highlight-text {
-            color: #FF6B6B;
-            background: #FFE8E8;
-            padding: 2px 6px;
-            border-radius: 8px;
+            color: #C00000;
             font-weight: bold;
         }
 
-        /* 標題與引言 */
-        .section-title {
-            font-size: 1.4em;
-            font-weight: 800;
-            margin-bottom: 15px;
-            color: #333;
-            text-align: center;
+        /* ========================================= */
+        /* 表格與試算器優化 (融入金邊框架內) */
+        /* ========================================= */
+        table { 
+            width: 100%; border-collapse: separate; border-spacing: 0; 
+            border-radius: 8px; overflow: hidden; margin-top: 10px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); font-size: 0.95em;
+            border: 1px solid #eee;
+        }
+        th, td { padding: 12px; text-align: center; background: #fff; border-bottom: 1px solid #eee; }
+        th { background: var(--primary-navy); color: var(--luxury-gold); font-family: 'Noto Serif TC', serif; font-weight: normal; letter-spacing: 1px;}
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background-color: var(--gold-light); }
+
+        /* 獎金試算器 */
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-weight: bold; margin-bottom: 5px; color: var(--primary-navy); }
+        .input-group input, .input-group select { 
+            width: 100%; padding: 12px 15px; border-radius: 8px; 
+            border: 1px solid #ccc; font-size: 1em; outline: none;
+            transition: border-color 0.3s;
+        }
+        .input-group input:focus, .input-group select:focus { border-color: var(--luxury-gold); }
+        
+        .calc-btn { 
+            width: 100%; 
+            background: linear-gradient(135deg, var(--primary-navy) 0%, #1A2A42 100%); 
+            color: var(--luxury-gold); 
+            border: 2px solid var(--luxury-gold);
+            padding: 15px; font-size: 1.1em; font-weight: bold; 
+            border-radius: 8px; cursor: pointer; 
+            box-shadow: 0 4px 10px rgba(15, 28, 46, 0.2); 
+            transition: all 0.3s ease;
+            font-family: 'Noto Serif TC', serif;
+            letter-spacing: 1px;
+        }
+        .calc-btn:active { transform: scale(0.98); }
+        
+        .result-box { 
+            display: none; margin-top: 20px; background: #fff; 
+            padding: 20px; border-radius: 8px; border-left: 5px solid var(--luxury-gold); 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+        }
+        .result-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95em; border-bottom: 1px dashed #eee; padding-bottom: 5px;}
+        .result-row.total { font-size: 1.3em; font-weight: bold; color: #C00000; border: none; margin-top: 15px; }
+
+        /* ========================================= */
+        /* 底部導覽列 (App 風格 - 尊榮金邊版) */
+        /* ========================================= */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%; 
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            display: flex; justify-content: space-around; 
+            padding: 10px 5px 20px 5px; 
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.08); 
+            border-radius: 25px 25px 0 0; z-index: 1000;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .nav-item { 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            color: #999; font-size: 0.8em; font-weight: bold; text-decoration: none; 
+            cursor: pointer; padding: 8px 10px; border-radius: 15px; 
+            transition: all 0.3s ease; flex: 1; 
+        }
+        .nav-icon { font-size: 1.6em; margin-bottom: 4px; filter: grayscale(100%); opacity: 0.5; transition: all 0.3s ease; }
+        
+        /* 點擊後的 Active 狀態 (海軍藍 + 香檳金) */
+        .nav-item.active { color: var(--luxury-gold); background: var(--primary-navy); box-shadow: 0 4px 10px rgba(15, 28, 46, 0.2);}
+        .nav-item.active .nav-icon { filter: grayscale(0%); opacity: 1; transform: translateY(-2px); }
+        
+        @supports (padding-bottom: env(safe-area-inset-bottom)) { 
+            .bottom-nav { padding-bottom: calc(10px + env(safe-area-inset-bottom)); } 
         }
         
-        .cite {
-            font-size: 0.8em;
-            color: #999;
-            vertical-align: super;
-            background: #eee;
-            border-radius: 50%;
-            padding: 1px 4px;
-            margin-left: 2px;
-        }
-
-        /* 表格圓潤化 */
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            border-radius: 12px;
-            overflow: hidden;
-            margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        th, td {
-            padding: 12px;
-            text-align: center;
-            background: #fff;
-            border-bottom: 1px solid #eee;
-        }
-        th {
-            background: var(--color-tab4);
-            color: white;
-            font-weight: bold;
-        }
-        tr:last-child td { border-bottom: none; }
-
-        /* 底部導覽列 (App 風格) */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 5px 20px 5px; /* 預留 iPhone 底部安全區 */
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
-            border-radius: 25px 25px 0 0;
-            z-index: 1000;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 0.8em;
-            text-decoration: none;
-            cursor: pointer;
-            padding: 8px 10px;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            flex: 1;
-        }
-
-        .nav-icon {
-            font-size: 1.6em;
-            margin-bottom: 4px;
-            filter: grayscale(100%);
-            opacity: 0.6;
-            transition: all 0.3s ease;
-        }
-
-        /* 導覽列 Active 狀態與專屬顏色 */
-        .nav-item.active[data-target="Strategy"] { color: var(--color-tab1); background: rgba(255,107,107,0.1); }
-        .nav-item.active[data-target="Strategy"] .nav-icon { filter: grayscale(0%); opacity: 1; transform: translateY(-3px); }
-
-        .nav-item.active[data-target="Objections"] { color: var(--color-tab2); background: rgba(78,205,196,0.1); }
-        .nav-item.active[data-target="Objections"] .nav-icon { filter: grayscale(0%); opacity: 1; transform: translateY(-3px); }
-
-        .nav-item.active[data-target="Advantages"] { color: #E0A800; background: rgba(255,209,102,0.15); }
-        .nav-item.active[data-target="Advantages"] .nav-icon { filter: grayscale(0%); opacity: 1; transform: translateY(-3px); }
-
-        .nav-item.active[data-target="Bonus"] { color: var(--color-tab4); background: rgba(160,108,213,0.1); }
-        .nav-item.active[data-target="Bonus"] .nav-icon { filter: grayscale(0%); opacity: 1; transform: translateY(-3px); }
-
-        .nav-item.active[data-target="Competitors"] { color: var(--color-tab5); background: rgba(17,138,178,0.1); }
-        .nav-item.active[data-target="Competitors"] .nav-icon { filter: grayscale(0%); opacity: 1; transform: translateY(-3px); }
-
-        /* iPhone 底部 Home Indicator 安全區域適配 */
-        @supports (padding-bottom: env(safe-area-inset-bottom)) {
-            .bottom-nav {
-                padding-bottom: calc(10px + env(safe-area-inset-bottom));
-            }
-        }
+        /* 引用標籤 */
+        .cite { font-size: 0.8em; color: #888; vertical-align: super; }
     </style>
 </head>
 <body>
 
     <!-- 頂部 Header -->
     <header class="app-header">
-        <h1>✨ 遠銀招募秘笈 ✨</h1>
-        <p>FEIB 頂級理專人才網羅攻略 App</p>
+        <h1>遠銀菁英招募系統</h1>
+        <div class="pwa-hint">點選「分享 ➔ 加入主畫面」解鎖全螢幕 App 體驗</div>
     </header>
 
     <!-- 內容區 -->
     <main class="content-container">
 
-        <!-- 分頁 1：策略 -->
+        <!-- 分頁 1：策略 (預設全部收合) -->
         <div id="Strategy" class="tab-content active">
             <div class="section-title">🎯 落地招募 10 步驟</div>
             
-            <details data-theme="strategy">
+            <details>
                 <summary>01：精準鎖定目標與職級</summary>
-                <div class="detail-content">對標簡報中的職級，鎖定具潛力或已具高資產客戶群的同業理專。例如能扛下每月120萬總目標的高階人才，直接主推最高的 <span class="highlight-text">ERM3 職級</span>，讓對方面子與裡子兼顧。</div>
+                <div class="detail-content">對標簡報中的職級，鎖定具潛力或已具高資產客戶群的同業理專。主推如 <span class="highlight-text">ERM3 職級</span>，讓對方面子與裡子兼顧。</div>
             </details>
-            <details data-theme="strategy">
+            <details>
                 <summary>02：集團生態圈破冰法</summary>
-                <div class="detail-content">向候選人說明加入遠銀等同於坐擁橫跨食衣住行（如遠傳電信、遠東百貨、亞東醫院等）的潛在高資產客群，大幅降低開發新客戶的門檻。</div>
+                <div class="detail-content">向候選人說明加入遠銀坐擁橫跨食衣住行（如遠百、遠傳等）的潛在高資產客群，降低開發新客戶門檻。</div>
             </details>
-            <details data-theme="strategy">
+            <details>
                 <summary>03：數位賦能解決痛點</summary>
-                <div class="detail-content">同業理專常因繁瑣紙本作業疲憊，強調遠銀的「行動投保O2O」與雲端理財系統，讓客戶在手機上即可完成簽約，幫理專省下時間專注拚業績。</div>
+                <div class="detail-content">強調遠銀「行動投保O2O」與雲端系統，客戶在手機上即可完成簽約，幫理專省下紙本作業時間。</div>
             </details>
-            <details data-theme="strategy">
+            <details>
                 <summary>04：首創 VIP 計算獲客優勢</summary>
-                <div class="detail-content">遠銀VIP計算基礎大勝同業，涵蓋存款、投資、保險、<span class="highlight-text">信用卡（100%計入）與房屋貸款（20%計入）</span>。這是未來幫客戶升等 VIP 的超強籌碼。</div>
+                <div class="detail-content">遠銀VIP計算基礎大勝同業，涵蓋存款、投資、保險、<span class="highlight-text">信用卡(100%)與房屋貸款(20%)</span>。是幫客戶升等的超強籌碼。</div>
             </details>
-            <details data-theme="strategy">
+            <details>
                 <summary>05：拋出「獵英計畫」誘餌</summary>
-                <div class="detail-content">針對已有客源的候選人，拋出新報到專屬「獵英計畫」。首年帶入「NEW NEW客戶」，達標最高可提早分段發放 <span class="highlight-text">37 萬元鉅額獎金</span>。</div>
+                <div class="detail-content">針對已有客源的候選人，首年帶入「NEW NEW客戶」，達標最高可提早分段發放 <span class="highlight-text">37 萬元鉅額獎金</span>。</div>
             </details>
-            <details data-theme="strategy">
+            <details>
                 <summary>06：展示無天花板獎金制</summary>
-                <div class="detail-content">拆解獎金公式。強調獎金率採分段式（Tier/Kicker）階梯計算，例如最高階 ERM3 獎金率高達 27.5%，且<span class="highlight-text">完全沒有天花板</span>，做越多領越多。</div>
+                <div class="detail-content">當場秀出公式，強調獎金率採分段式階梯計算，ERM3 最高達 27.5%，且<span class="highlight-text">無天花板</span>，做越多領越多。</div>
             </details>
-            <details data-theme="strategy">
+            <details>
                 <summary>07：彈性 60/40 考核雙軌制</summary>
-                <div class="detail-content">化解 KPI 壓力。說明遠銀考核財務指標最高佔 60%，非財務（滿意度、作業品質等）佔 40%，展現公司重視客戶長期經營，非短線逼單。</div>
+                <div class="detail-content">化解 KPI 壓力。說明財務指標最高佔 60%，非財務（滿意度等）佔 40%，展現重視客戶長期經營的文化。</div>
             </details>
-            <details data-theme="strategy">
+            <details>
                 <summary>08：端出優渥員工福利包</summary>
-                <div class="detail-content">除了獎金，還有約1個月員工紅利、銀行<span class="highlight-text">加碼提撥30%</span>的持股信託，及最高48萬的 <span class="highlight-text">加碼 5% 高利行存</span>。</div>
+                <div class="detail-content">約1個月員工紅利、銀行<span class="highlight-text">加碼提撥30%</span>持股信託，及最高48萬的 <span class="highlight-text">加碼 5% 高利行存</span>。</div>
             </details>
-            <details data-theme="strategy">
+            <details>
                 <summary>09：招募影片建立文化認同</summary>
-                <div class="detail-content">邀請候選人掃描 QR Code 觀看影片，透過影像讓對方感受遠銀「十樂 HAPPY+」的優質品牌價值與工作氛圍。</div>
+                <div class="detail-content">邀請掃描 QR Code 觀看影片，讓對方感受遠銀「十樂 HAPPY+」的工作氛圍。</div>
             </details>
-            <details data-theme="strategy">
+            <details>
                 <summary>10：客製化薪酬試算與促結</summary>
-                <div class="detail-content">請候選人預估轉職能帶來的 AUM 與手收。當場套用公式，為他試算包含獵英計畫的「首年總收入」，用具體數字藍圖促成簽約。</div>
+                <div class="detail-content">請候選人預估能帶來的手收，打開下方「💰獎金」頁面直接試算，用具體數字藍圖促成簽約！</div>
             </details>
         </div>
 
-        <!-- 分頁 2：Q&A -->
+        <!-- 分頁 2：Q&A (預設全部收合) -->
         <div id="Objections" class="tab-content">
             <div class="section-title">💬 疑慮破解話術</div>
             
-            <details data-theme="qna">
+            <details>
                 <summary>Q：考核只看業績，不顧客戶？</summary>
-                <div class="detail-content"><b>這點完全不用擔心！</b>財務指標最多僅佔加權評核的 60%，另外高達 40% 是非財務指標（滿意度調查12%、作業品質5%、防範短線交易5%等），遠銀非常注重長期經營。</div>
+                <div class="detail-content"><b>不用擔心！</b>財務指標最多僅佔 60%，另外 40% 是非財務指標（滿意度、作業品質等），遠銀非常重視長期經營。</div>
             </details>
-            <details data-theme="qna">
+            <details>
                 <summary>Q：會逼迫理專狂推特定商品嗎？</summary>
                 <div class="detail-content"><b>指標分配非常均衡。</b>信託收益佔 30%，非信託佔 15%，且明確規定「信託收益不得超過財務指標的 50%」，絕不會強迫單壓商品。</div>
             </details>
-            <details data-theme="qna">
+            <details>
                 <summary>Q：高齡客戶買投資，手收會打折？</summary>
-                <div class="detail-content"><b>為落實公平待客，確實有分級機制，但這是保護您減少客訴。</b>65-80歲承作RR5手收認列75折、RR4認85折；80歲以上RR5認7折、RR4認8折。</div>
+                <div class="detail-content"><b>為落實公平待客有分級機制，保護您減少客訴。</b>65-80歲承作RR5手收認列75折、RR4認85折；80歲以上更嚴格。</div>
             </details>
-            <details data-theme="qna">
+            <details>
                 <summary>Q：最高階 ERM3 每月業績目標？</summary>
-                <div class="detail-content">ERM3 總目標是每月 120萬（信託收益 75萬 + 非信託 45萬）。若您有堅實的高資產客戶，這個數字對您來說絕對能創造驚人獎金。</div>
+                <div class="detail-content">ERM3 總目標是每月 120萬（信託收益 75萬 + 非信託 45萬）。若您有堅實的高資產客戶，這個數字絕對能創造驚人獎金。</div>
             </details>
-            <details data-theme="qna">
+            <details>
                 <summary>Q：獎金率有上限嗎？會被砍 % 數？</summary>
-                <div class="detail-content"><b>絕對不會，制度保證無天花板！</b>遠銀採分段（Tier/Kicker）式計算，業績達到的級距越高，獎金率跳得越高，最高階可達 27.5%。</div>
+                <div class="detail-content"><b>絕對不會，保證無天花板！</b>業績達到的級距越高，獎金率跳得越高，最高階可達 27.5%。</div>
             </details>
-            <details data-theme="qna">
+            <details>
                 <summary>Q：跳槽第一年有什麼津貼補助嗎？</summary>
-                <div class="detail-content">公司準備了<b>「獵英計畫」</b>！首年帶入未在遠銀開過戶的新客戶，累積 AUM 達 3.5億以上，外加領取 <span class="highlight-text">30萬～37萬</span> 的專屬獎金，且分兩階段提早發放！</div>
+                <div class="detail-content">有專屬<b>「獵英計畫」</b>！首年帶入新客 AUM 達 3.5億以上，外加領取 <span class="highlight-text">30萬～37萬</span> 獎金，且分兩階段提早發放！</div>
             </details>
         </div>
 
-        <!-- 分頁 3：優勢 -->
+        <!-- 分頁 3：優勢 (預設全部收合) -->
         <div id="Advantages" class="tab-content">
             <div class="section-title">🏆 加入遠銀十大優勢</div>
             
-            <details data-theme="adv">
+            <details>
                 <summary>1. 遠東龐大生態圈資源</summary>
-                <div class="detail-content">橫跨食衣住行十大事業（遠傳、遠百、亞東醫院等），能直接開發集團內部潛在高資產客群，是一般獨立銀行無法比擬的開客靠山。</div>
+                <div class="detail-content">橫跨食衣住行十大事業，能直接開發集團潛在高資產客群，開客靠山強大。</div>
             </details>
-            <details data-theme="adv">
-                <summary>2. 首創全方位 VIP 額度計算</summary>
-                <div class="detail-content">打破業界慣例，將客戶的<span class="highlight-text">信用卡刷卡金（100%）及房貸餘額（20%）</span>全納入 VIP AUM 計算，大幅降低客戶達標門檻。</div>
+            <details>
+                <summary>2. 全方位 VIP 額度計算</summary>
+                <div class="detail-content">打破業界慣例，<span class="highlight-text">信用卡（100%）及房貸（20%）</span>全納入 VIP AUM，降低達標門檻。</div>
             </details>
-            <details data-theme="adv">
-                <summary>3. 貼心的急升緩降 VIP 禮遇</summary>
-                <div class="detail-content">星等效期達3個月，達標次月即生效。七星等享有每月 98 次跨提免手續費、房貸優惠及高球賽等極致回饋。</div>
+            <details>
+                <summary>3. 急升緩降 VIP 尊榮禮遇</summary>
+                <div class="detail-content">星等效期達3個月，達標次月生效。七星等享每月 98 次跨提免手續費等回饋。</div>
             </details>
-            <details data-theme="adv">
+            <details>
                 <summary>4. 數位賦能便捷雲端系統</summary>
-                <div class="detail-content">行動投保O2O及 e化文件審核，雲端理財讓客戶用手機就能輕鬆安全完成簽約與交易，極大化減少行政負擔。</div>
+                <div class="detail-content">行動投保O2O及 e化文件審核，雲端理財讓客戶用手機就能輕鬆安全完成簽約與交易。</div>
             </details>
-            <details data-theme="adv">
+            <details>
                 <summary>5. 重金迎新的獵英計畫</summary>
-                <div class="detail-content">專為跳槽菁英設立，首年引進新客戶，達標 AUM 最高可額外領取高達 37 萬元的豐厚獎金，且分階段發放。</div>
+                <div class="detail-content">專為跳槽設立，引進新客達標最高可額外領取高達 37 萬豐厚獎金。</div>
             </details>
-            <details data-theme="adv">
+            <details>
                 <summary>6. 無天花板分段式獎金</summary>
-                <div class="detail-content">獎金採用分段式（Tier/Kicker）向上遞增，業績做越高 % 數越高，最高階 ERM3 獎金率高達 27.5%。</div>
+                <div class="detail-content">獎金採（Tier/Kicker）向上遞增，業績做越高 % 數越高，最高階 ERM3 獎金率高達 27.5%。</div>
             </details>
-            <details data-theme="adv">
+            <details>
                 <summary>7. 兼顧質量的 60/40 雙軌制</summary>
                 <div class="detail-content">財務指標最高只佔 60%，非財務指標（客戶滿意度、作業品質等）佔 40%，讓理專能安心提供長期服務。</div>
             </details>
-            <details data-theme="adv">
+            <details>
                 <summary>8. 公平待客保護機制</summary>
                 <div class="detail-content">對高齡客戶承作高風險商品有保護與手續費折算機制，從源頭減少理專面對客訴糾紛的風險。</div>
             </details>
-            <details data-theme="adv">
+            <details>
                 <summary>9. 高利儲蓄與持股信託</summary>
-                <div class="detail-content">提供最高 48 萬的高利行存（定儲機動利率加碼 5%），及優於業界的持股信託補助（行方加碼 30%）。</div>
+                <div class="detail-content">提供最高 48 萬高利行存（定儲機動+5%），及持股信託補助（行方加碼 30%）。</div>
             </details>
-            <details data-theme="adv">
+            <details>
                 <summary>10. 員工紅利與職務津貼</summary>
                 <div class="detail-content">每年約提撥 1 個月的員工紅利，依照職級每月另發放 900 至 3,600 元不等的定額獎勵金。</div>
             </details>
         </div>
 
-        <!-- 分頁 4：公式 -->
+        <!-- 分頁 4：獎金公式與試算器 (預設全部收合) -->
         <div id="Bonus" class="tab-content">
-            <div class="section-title">💰 獎金計算公式解析</div>
+            <div class="section-title">💰 獎金計算與互動試算</div>
             
-            <details data-theme="bonus" open>
+            <details>
                 <summary>核心公式與發放門檻</summary>
                 <div class="detail-content">
-                    <p style="text-align:center; font-weight:800; color:#A06CD5; font-size:1.1em; background:#f4ebfa; padding:10px; border-radius:10px;">當季計績收益 × 獎金率 × 季平均加權評核</p>
-                    <ul>
-                        <li><span class="highlight-text">計績收益：</span>(信託收益 + 非信託收益) - 基本產能</li>
-                        <li><span class="highlight-text">基本產能：</span>每月設定為底薪的 2.78 倍（一季以3個月計）</li>
-                        <li><span class="highlight-text">發放門檻：</span>季平均加權評核結果必須 ≥ 60 分</li>
+                    <p style="text-align:center; font-weight:bold; color:var(--primary-navy); font-size:1.1em; background:var(--gold-light); padding:10px; border-radius:8px; border: 1px solid var(--luxury-gold);">
+                        季計績收益 × 獎金率 × 季KPI分數
+                    </p>
+                    <ul style="font-size: 0.95em;">
+                        <li><span class="highlight-text">計績收益：</span>(信託 + 非信託收益) - 基本產能</li>
+                        <li><span class="highlight-text">基本產能：</span>每月底薪 × 2.78倍 × 3個月</li>
+                        <li><span class="highlight-text">發放門檻：</span>季KPI結果必須 ≥ 60 分</li>
                     </ul>
                 </div>
             </details>
             
-            <details data-theme="bonus">
-                <summary>分段式獎金率 (無天花板)</summary>
+            <details>
+                <summary>分段式獎金率級距表</summary>
                 <div class="detail-content">
                     <table>
-                        <tr><th>職務別</th><th>起跳率</th><th>最高級距率</th></tr>
+                        <tr><th>職務別</th><th>最低起跳率</th><th>最高級距率</th></tr>
                         <tr><td>CRM1</td><td>7.0%</td><td>11.5%</td></tr>
                         <tr><td>CRM2</td><td>9.5%</td><td>17.5%</td></tr>
                         <tr><td>CRM3</td><td>11.0%</td><td>20.0%</td></tr>
@@ -429,97 +414,102 @@
                     </table>
                 </div>
             </details>
+
+            <details>
+                <summary>動態 RM 獎金模擬試算器</summary>
+                <div class="detail-content">
+                    <div class="input-group">
+                        <label>目標職級</label>
+                        <select id="calc-level">
+                            <option value="CRM2">CRM2 (適合中階主力)</option>
+                            <option value="SRM1">SRM1 (適合高階戰將)</option>
+                            <option value="ERM1">ERM1 (適合頂尖王牌)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>您的每月底薪 (NTD)</label>
+                        <input type="number" id="calc-salary" value="50000" placeholder="例如: 50000">
+                    </div>
+                    <div class="input-group">
+                        <label>預估每月總手收 (信託+非信託)</label>
+                        <input type="number" id="calc-revenue" value="600000" placeholder="例如: 600000">
+                    </div>
+                    <div class="input-group">
+                        <label>預估 KPI 分數 (60-100)</label>
+                        <input type="number" id="calc-kpi" value="100" min="60" max="100">
+                    </div>
+                    <button class="calc-btn" onclick="calculateBonus()">執行一鍵試算</button>
+
+                    <!-- 結果顯示區 -->
+                    <div id="calc-result" class="result-box">
+                        <div class="result-row"><span>季基本產能要求：</span><span id="res-capacity">0</span></div>
+                        <div class="result-row"><span>季總收益：</span><span id="res-total-rev">0</span></div>
+                        <div class="result-row"><span>當季計績收益：</span><span id="res-perf-rev">0</span></div>
+                        <div class="result-row"><span>落點獎金率：</span><span id="res-rate">0%</span></div>
+                        <div class="result-row total"><span>🏆 預估單季獎金：</span><span id="res-bonus">0</span></div>
+                        <p style="font-size:0.8em; color:#999; margin:10px 0 0 0; text-align:center;">*此為招募說明模擬試算，實際依核定結果為準。</p>
+                    </div>
+                </div>
+            </details>
         </div>
 
-        <!-- 分頁 5：同業比較 -->
+        <!-- 分頁 5：同業比較 (預設全部收合) -->
         <div id="Competitors" class="tab-content">
-            <div class="section-title">📊 市場同業行情比拚</div>
+            <div class="section-title">📊 業界薪酬大解密</div>
             
-            <details data-theme="comp" open>
-                <summary>💡 最新洞察：遠銀贏在哪裡？</summary>
+            <details>
+                <summary>💡 遠銀致勝洞察</summary>
                 <div class="detail-content">
-                    公股主打穩定與優存，民營外商主打高目標與高獎金。<b>遠銀則精準結合了「民營金控的無天花板獎金制度（最高27.5%）」與「類公股的豐厚福利（持股信託+30%、高利行存+5%）」</b>，成為同時追求高薪與安穩職涯的理專首選！
+                    公股主打穩定，民營外商主打高獎金。<b>遠銀精準結合了「民營的無天花板獎金制度（最高27.5%）」與「類公股的豐厚福利（持股信託+30%、高利行存+5%）」</b>，成為同時追求高薪與安穩職涯的首選。
                 </div>
             </details>
-
-            <details data-theme="comp">
-                <summary>🏛️ 公股銀行 (台銀/兆豐/一銀/臺企銀)</summary>
-                <div class="detail-content">
-                    <ul>
-                        <li><b>基本底薪：</b>平均落在 39K–41K，考量年終年收入約可達 18–20 個月<span class="cite">[1][2]</span>。</li>
-                        <li><b>年終獎金：</b>台銀受限法規最高發放 4.4 個月<span class="cite">[3]</span>。兆豐、一銀約 8 個月，臺企銀憑藉獲利新高預估也超過 8 個月<span class="cite">[4]</span>。</li>
-                        <li><b>隱形福利：</b>提供最高 13% 員工優惠存款（額度約48萬），每年光利息即增加約 5-6 萬元<span class="cite">[2][5]</span>。</li>
-                        <li><b>缺點：</b>薪資與獎金有天花板限制，無法像民營提供超額的爆發力獎金。</li>
-                    </ul>
-                </div>
+            <details>
+                <summary>🏛️ 公股銀行 (台/兆/一/企)</summary>
+                <div class="detail-content">平均起薪 39K–41K。優勢為高達 13% 優惠存款。缺點是薪水調整與獎金受制於天花板，缺乏超額爆發力。</div>
             </details>
-
-            <details data-theme="comp">
-                <summary>🏢 大型民營金控 (富邦/中信/台新)</summary>
-                <div class="detail-content">
-                    <ul>
-                        <li><b>富邦金控：</b>MA（儲備幹部）起薪約 69K-71K，年終獎金中位數達 8 個月，最高更曾發放 20 個月<span class="cite">[4]</span>。</li>
-                        <li><b>中信銀行：</b>企金/法金 RM 年薪甚至可達 140萬至 230萬以上<span class="cite">[6]</span>，但業績導向極為明確。</li>
-                        <li><b>台新銀行：</b>理專試用期後起薪約 N+4400（含伙食津貼）<span class="cite">[7]</span>，年終平均約 6-7 個月<span class="cite">[4]</span>。</li>
-                        <li><b>缺點：</b>淘汰機制激烈，目標設定門檻較高，面臨極大的流動率壓力。</li>
-                    </ul>
-                </div>
+            <details>
+                <summary>🏢 大型民營金控 (中/台/富)</summary>
+                <div class="detail-content">高階 RM 年薪可達 140萬至 230萬以上，但淘汰機制激烈，目標設定門檻較高（如過試用期需達 13~25萬手收），面臨極大流動率壓力。</div>
             </details>
-
-            <details data-theme="comp">
-                <summary>🌍 外商銀行 (星展/滙豐)</summary>
-                <div class="detail-content">
-                    <ul>
-                        <li><b>薪資結構：</b>起薪極高，消金理專起薪約 78K-83K 起跳<span class="cite">[8]</span>。</li>
-                        <li><b>制度文化：</b>採用低底薪、高比例業績獎金制度，適合喜歡短線衝刺的人才<span class="cite">[9]</span>。</li>
-                        <li><b>缺點：</b>伴隨外商文化的裁員風險與極大績效壓力，需要抗壓極強的業務菁英。</li>
-                    </ul>
-                </div>
+            <details>
+                <summary>🌍 外商銀行 (星/滙)</summary>
+                <div class="detail-content">起薪極高（約 78K 起跳）。缺點是伴隨外商文化的裁員風險與極大績效壓力，適合高度結果導向的菁英。</div>
             </details>
         </div>
 
     </main>
 
-    <!-- App 底部導覽列 -->
+    <!-- App 底部導覽列 (尊榮版) -->
     <nav class="bottom-nav">
         <a class="nav-item active" data-target="Strategy" onclick="openTab(event, 'Strategy')">
-            <div class="nav-icon">🎯</div>
-            <span>策略</span>
+            <div class="nav-icon">🎯</div><span>策略</span>
         </a>
         <a class="nav-item" data-target="Objections" onclick="openTab(event, 'Objections')">
-            <div class="nav-icon">💬</div>
-            <span>Q&A</span>
+            <div class="nav-icon">💬</div><span>Q&A</span>
         </a>
         <a class="nav-item" data-target="Advantages" onclick="openTab(event, 'Advantages')">
-            <div class="nav-icon">🏆</div>
-            <span>優勢</span>
+            <div class="nav-icon">🏆</div><span>優勢</span>
         </a>
         <a class="nav-item" data-target="Bonus" onclick="openTab(event, 'Bonus')">
-            <div class="nav-icon">💰</div>
-            <span>獎金</span>
+            <div class="nav-icon">💰</div><span>獎金</span>
         </a>
         <a class="nav-item" data-target="Competitors" onclick="openTab(event, 'Competitors')">
-            <div class="nav-icon">📊</div>
-            <span>同業</span>
+            <div class="nav-icon">📊</div><span>同業</span>
         </a>
     </nav>
 
     <script>
+        // 切換分頁邏輯
         function openTab(evt, tabName) {
-            // 隱藏所有分頁內容
             var tabcontent = document.getElementsByClassName("tab-content");
             for (var i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
                 tabcontent[i].classList.remove("active");
             }
-            
-            // 移除所有導覽按鈕的 active 狀態
             var navItems = document.getElementsByClassName("nav-item");
             for (var i = 0; i < navItems.length; i++) {
                 navItems[i].classList.remove("active");
             }
-            
-            // 顯示當前點擊的分頁
             document.getElementById(tabName).style.display = "block";
             
             // 觸發重新動畫
@@ -529,6 +519,77 @@
 
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
+        }
+
+        // 格式化數字 (千分位)
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        // 獎金試算邏輯
+        function calculateBonus() {
+            const level = document.getElementById('calc-level').value;
+            const salary = parseFloat(document.getElementById('calc-salary').value) || 0;
+            const monthlyRev = parseFloat(document.getElementById('calc-revenue').value) || 0;
+            const kpi = parseFloat(document.getElementById('calc-kpi').value) || 0;
+
+            if(kpi < 60) {
+                alert("KPI 分數需達 60 分以上始可發放獎金喔！");
+                return;
+            }
+
+            // 1. 計算基本產能 (底薪 * 2.78 * 3個月)
+            const capacity = salary * 2.78 * 3;
+            
+            // 2. 計算季總收益 (月手收 * 3)
+            const totalRev = monthlyRev * 3;
+
+            // 3. 計算當季計績收益 (總收益 - 基本產能)
+            let perfRev = totalRev - capacity;
+            if (perfRev < 0) perfRev = 0;
+
+            // 4. 判斷獎金率
+            let rate = 0;
+            if (level === 'CRM2') {
+                if (perfRev >= 3735000) rate = 0.175;
+                else if (perfRev >= 2805000) rate = 0.16;
+                else if (perfRev >= 1875000) rate = 0.15;
+                else if (perfRev >= 945000) rate = 0.135;
+                else if (perfRev >= 480000) rate = 0.105;
+                else if (perfRev >= 370000) rate = 0.095;
+            } else if (level === 'SRM1') {
+                if (perfRev >= 7885000) rate = 0.225;
+                else if (perfRev >= 6475000) rate = 0.22;
+                else if (perfRev >= 5065000) rate = 0.215;
+                else if (perfRev >= 3655000) rate = 0.205;
+                else if (perfRev >= 2597000) rate = 0.19;
+                else if (perfRev >= 1540000) rate = 0.175;
+                else if (perfRev >= 835000) rate = 0.14;
+                else if (perfRev >= 652000) rate = 0.115;
+            } else if (level === 'ERM1') {
+                if (perfRev >= 16783000) rate = 0.25;
+                else if (perfRev >= 12882000) rate = 0.24;
+                else if (perfRev >= 9958000) rate = 0.235;
+                else if (perfRev >= 8008000) rate = 0.23;
+                else if (perfRev >= 6058000) rate = 0.225;
+                else if (perfRev >= 4108000) rate = 0.22;
+                else if (perfRev >= 2158000) rate = 0.205;
+                else if (perfRev >= 1183000) rate = 0.18;
+                else if (perfRev >= 930000) rate = 0.16;
+            }
+
+            // 5. 計算總獎金
+            const kpiMultiplier = kpi / 100;
+            const finalBonus = Math.round(perfRev * rate * kpiMultiplier);
+
+            // 顯示結果
+            document.getElementById('res-capacity').innerText = "NT$ " + formatNumber(Math.round(capacity));
+            document.getElementById('res-total-rev').innerText = "NT$ " + formatNumber(Math.round(totalRev));
+            document.getElementById('res-perf-rev').innerText = "NT$ " + formatNumber(Math.round(perfRev));
+            document.getElementById('res-rate').innerText = (rate * 100).toFixed(1) + "%";
+            document.getElementById('res-bonus').innerText = "NT$ " + formatNumber(finalBonus);
+
+            document.getElementById('calc-result').style.display = "block";
         }
     </script>
 </body>
