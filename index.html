@@ -1,0 +1,495 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>遠東商銀 頂級理財專員 招募全攻略</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #0F1C2E;
+            --luxury-gold: #D4AF37;
+            --gold-light: #F9F2D8;
+            --text-main: #333333;
+            --bg-body: #F4F6F8;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            line-height: 1.8;
+            color: var(--text-main);
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 30px 15px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px; /* 稍微縮小寬度讓金邊框架更緊湊有質感 */
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(15, 28, 46, 0.15);
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        /* 頂部標題區 */
+        .header-banner {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, #1A2A42 100%);
+            color: var(--luxury-gold);
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 4px solid var(--luxury-gold);
+        }
+
+        h1 {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 2.5em;
+            margin: 0;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        }
+
+        .header-subtitle {
+            color: #E2C779;
+            font-size: 1.1em;
+            margin-top: 10px;
+            letter-spacing: 1px;
+        }
+
+        /* 導覽按鈕區 */
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            background-color: var(--white);
+            padding: 20px 20px 0 20px;
+        }
+
+        .tab-button {
+            background-color: transparent;
+            border: 1px solid #E0E0E0;
+            color: var(--primary-navy);
+            cursor: pointer;
+            padding: 12px 20px;
+            margin: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            font-family: 'Noto Serif TC', serif;
+            border-radius: 30px;
+            transition: all 0.4s ease;
+        }
+
+        .tab-button:hover {
+            border-color: var(--luxury-gold);
+            color: var(--luxury-gold);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .tab-button.active {
+            background-color: var(--primary-navy);
+            color: var(--luxury-gold);
+            border-color: var(--primary-navy);
+            box-shadow: 0 8px 20px rgba(15, 28, 46, 0.3);
+        }
+
+        /* 內容區 */
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-family: 'Noto Serif TC', serif;
+            color: var(--primary-navy);
+            border-bottom: 2px solid var(--luxury-gold);
+            padding-bottom: 10px;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .tab-desc {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.05em;
+        }
+
+        /* ★★★ 金邊互動框架設計 ★★★ */
+        details {
+            background: var(--white);
+            border: 2px solid var(--luxury-gold); /* 華麗金邊 */
+            border-radius: 10px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        details:hover {
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
+            transform: translateY(-2px);
+        }
+
+        summary {
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--primary-navy);
+            padding: 18px 20px 18px 55px; /* 留出左側加號的空間 */
+            position: relative;
+            list-style: none;
+            font-size: 1.15em;
+            background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(249,242,216,0.2) 100%);
+            outline: none;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* 左側動態圖示 */
+        summary::before {
+            content: '＋';
+            position: absolute;
+            left: 20px;
+            color: var(--luxury-gold);
+            font-size: 1.5em;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease, color 0.3s ease;
+            font-weight: normal;
+        }
+
+        /* 展開後的狀態 */
+        details[open] {
+            border-color: var(--primary-navy);
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            background: var(--primary-navy);
+            color: var(--luxury-gold);
+        }
+
+        details[open] summary::before {
+            content: '－';
+            color: var(--luxury-gold);
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        /* 展開的內容區塊 */
+        .detail-content {
+            padding: 25px 30px;
+            background-color: #FAFAFA;
+            color: #444;
+            line-height: 1.8;
+            font-size: 1.05em;
+            border-top: 2px solid var(--luxury-gold);
+        }
+
+        .highlight-text {
+            color: #C00000;
+            font-weight: bold;
+        }
+
+        /* 內部表格樣式優化 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #EEEEEE;
+        }
+        th {
+            background-color: var(--gold-light);
+            color: var(--primary-navy);
+            font-weight: bold;
+        }
+        tr:hover td {
+            background-color: #FDFBF7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-banner">
+        <h1>遠東商銀 菁英理專招募系統</h1>
+        <div class="header-subtitle">Far Eastern International Bank - 頂級招募戰略全解</div>
+    </div>
+
+    <div class="tab-container">
+        <button class="tab-button active" onclick="openTab(event, 'Strategy')">🎯 10大招募策略</button>
+        <button class="tab-button" onclick="openTab(event, 'Objections')">💬 關鍵疑慮破解</button>
+        <button class="tab-button" onclick="openTab(event, 'Advantages')">🏆 遠銀十大優勢</button>
+        <button class="tab-button" onclick="openTab(event, 'Bonus')">💰 獎金計算公式</button>
+        <button class="tab-button" onclick="openTab(event, 'Competitors')">📊 業界待遇解析</button>
+    </div>
+
+    <!-- 分頁 1：10大招募策略 -->
+    <div id="Strategy" class="tab-content active">
+        <h2>如何招募人員的策略 (落地 10 步驟)</h2>
+        <p class="tab-desc">點擊下方金框，展開具體招募戰略細節</p>
+        
+        <details>
+            <summary>步驟 01：精準定義目標人選與職級</summary>
+            <div class="detail-content">對標簡報中的職級，鎖定具潛力或已具高資產客戶群的同業理專。例如能扛下每月120萬總目標的高階人才，直接主推最高的 ERM3 職級，讓對方面子與裡子兼顧。</div>
+        </details>
+        <details>
+            <summary>步驟 02：利用「遠東集團生態圈」破冰</summary>
+            <div class="detail-content">在首次面談時，向候選人說明加入遠銀等同於坐擁橫跨食衣住行（如遠傳電信、遠東百貨、亞東醫院等）的潛在高資產客群，大幅降低開發新客戶的門檻。</div>
+        </details>
+        <details>
+            <summary>步驟 03：強調「數位賦能」解決行政痛點</summary>
+            <div class="detail-content">同業理專常因繁瑣紙本作業疲憊，招募時應強調遠銀的「行動投保O2O」與雲端理財系統，讓客戶在手機上即可完成簽約，幫理專省下時間專注拚業績。</div>
+        </details>
+        <details>
+            <summary>步驟 04：運用「首創 VIP 門檻」作為獲客優勢</summary>
+            <div class="detail-content">遠銀VIP計算基礎大勝同業，涵蓋存款、投資、保險、<span class="highlight-text">信用卡（100%計入）與房屋貸款（20%計入）</span>。告訴候選人這將是他未來幫客戶累積 AUM、升等 VIP 的超強籌碼。</div>
+        </details>
+        <details>
+            <summary>步驟 05：拋出「獵英計畫」重金誘餌</summary>
+            <div class="detail-content">針對手上已有客戶資源的候選人，拋出新報到理專專屬的「獵英計畫」。首年帶入未在遠銀開過戶的「NEW NEW客戶」，達標 AUM 最高可提早分段發放 30 至 37 萬元的鉅額獎金。</div>
+        </details>
+        <details>
+            <summary>步驟 06：展示極具爆發力的「季獎金制度」</summary>
+            <div class="detail-content">拆解獎金公式讓候選人看見「錢景」。強調獎金率採分段式（Tier/Kicker）階梯計算，例如最高階 ERM3 獎金率高達 27.5%，且<span class="highlight-text">完全沒有天花板</span>，做越多領越多。</div>
+        </details>
+        <details>
+            <summary>步驟 07：說明具彈性的「60/40考核雙軌制」</summary>
+            <div class="detail-content">化解理專最擔心的 KPI 壓力。說明遠銀考核財務指標最高只佔 60%，非財務指標（客戶滿意度、作業品質等）佔 40%，展現公司重視客戶長期經營，絕非短線逼單。</div>
+        </details>
+        <details>
+            <summary>步驟 08：端出「優渥員工福利包」強化留任</summary>
+            <div class="detail-content">列出底薪與業績獎金之外的隱形福利：包含約1個月的員工紅利、銀行<span class="highlight-text">加碼提撥30%</span>的持股信託，以及最高48萬的2年定儲機動利率<span class="highlight-text">加碼 5%</span>的高利行存。</div>
+        </details>
+        <details>
+            <summary>步驟 09：運用「招募影片」建立企業文化認同</summary>
+            <div class="detail-content">面談後邀請候選人掃描招募手冊上的 QR Code 觀看影片，透過視覺化影像讓候選人感受遠銀「十樂 HAPPY+」的優質品牌價值與工作氛圍。</div>
+        </details>
+        <details>
+            <summary>步驟 10：進行「客製化薪酬試算」與促結</summary>
+            <div class="detail-content">招募最後一哩路，請候選人預估自己轉職能帶來的 AUM 與手收。當場套用公式，為他試算包含獵英計畫與季獎金的「首年總收入」，用具體數字藍圖促成簽約。</div>
+        </details>
+    </div>
+
+    <!-- 分頁 2：反對問題應對 -->
+    <div id="Objections" class="tab-content">
+        <h2>Candidate 反對問題與疑慮破解</h2>
+        <p class="tab-desc">點擊展開專業獵頭破冰話術，迅速解除候選人防備</p>
+
+        <details>
+            <summary>Q：銀行的考核是不是都只看業績，不顧客戶服務？</summary>
+            <div class="detail-content"><b>這點您完全不用擔心，遠銀非常注重長期經營。</b>財務指標最多僅佔加權評核標準的 60%，另外高達 40% 是非財務指標（包含滿意度調查12%、作業品質5%、防範短線交易5%等）。</div>
+        </details>
+        <details>
+            <summary>Q：考核會逼迫理專單壓、狂推特定保險或基金嗎？</summary>
+            <div class="detail-content"><b>指標分配非常均衡。</b>信託收益佔 30%，非信託收益佔 15%，且制度明確規定「信託收益不得超過財務指標的 50%」，絕不會強迫理專單壓某一類型商品。</div>
+        </details>
+        <details>
+            <summary>Q：高齡客戶買投資商品，手收會被打折嗎？影響我的業績？</summary>
+            <div class="detail-content"><b>為落實公平待客，確實有分級機制，但這是保護您減少客訴。</b>65-80歲承作RR5手收認列75折、RR4認85折；80歲以上RR5認7折、RR4認8折。</div>
+        </details>
+        <details>
+            <summary>Q：最高階 ERM3 職級，每個月的業績總目標大約是多少？</summary>
+            <div class="detail-content">ERM3 總目標是每月 120萬，拆解下來包含信託收益 75萬與非信託收益 45萬。若您過往有堅實的高資產客戶，這個數字對您來說絕對能創造驚人獎金。</div>
+        </details>
+        <details>
+            <summary>Q：獎金率有上限嗎？如果我這季做超標，會不會被公司砍 % 數？</summary>
+            <div class="detail-content"><b>絕對不會，制度保證無天花板！</b>遠銀採分段（Tier/Kicker）式計算，業績越高、達到的級距越高，獎金率跳得越高，最高階甚至可達 27.5%。</div>
+        </details>
+        <details>
+            <summary>Q：跳槽過去第一年通常最辛苦，公司有什麼津貼或補助嗎？</summary>
+            <div class="detail-content">公司特別為您準備了<b>「獵英計畫」</b>！首年帶入未在遠銀開過戶的新客戶，累積 AUM 達 3.5億以上，就能外加領取 30萬～37萬 的專屬獎金，且分兩階段提早發放，完全消除您的轉換陣痛期。</div>
+        </details>
+        <details>
+            <summary>Q：貴行的 VIP 門檻好達成嗎？對我維繫客戶有什麼幫助？</summary>
+            <div class="detail-content"><b>業界首創，極好達成！</b>遠銀首創將存款、投資、保險、<b>信用卡（100%計入）、房貸（20%計入）</b>全部算進往來金額。客戶升等 VIP 後，最高享每月 98 次跨提免手續費、專屬高球賽等，是您挖角客戶的神兵利器。</div>
+        </details>
+    </div>
+
+    <!-- 分頁 3：遠銀10大優勢 -->
+    <div id="Advantages" class="tab-content">
+        <h2>加入遠東商銀的 10 大核心優勢</h2>
+        <p class="tab-desc">點擊解析為何遠銀是理財菁英的職涯首選平台</p>
+
+        <details>
+            <summary>🏆 優勢 01：遠東集團龐大生態圈資源</summary>
+            <div class="detail-content">橫跨全球十大經營事業，理專能直接開發遠傳、遠百、亞東醫院等集團內部潛在高資產客群，這是一般獨立銀行無法比擬的開客靠山。</div>
+        </details>
+        <details>
+            <summary>🏆 優勢 02：業界首創「全方位」VIP 額度計算</summary>
+            <div class="detail-content">打破業界只看存款投資的慣例，將客戶的信用卡刷卡金（100%計入）及房屋貸款餘額（20%計入）全納入 VIP AUM 計算基礎，大幅降低客戶達標門檻。</div>
+        </details>
+        <details>
+            <summary>🏆 優勢 03：貼心的「急升緩降」VIP 尊榮禮遇</summary>
+            <div class="detail-content">星等效期長達3個月，達標次月即生效升等。最高七星等更享有每月 98 次跨提免手續費、房貸利率優惠及集團專屬高球賽等極致尊榮回饋。</div>
+        </details>
+        <details>
+            <summary>🏆 優勢 04：數位賦能的便捷雲端系統</summary>
+            <div class="detail-content">具備「行動投保O2O」及 e化文件審核，雲端理財讓客戶用手機就能輕鬆安全完成簽約與交易，極大化減少理專的行政庶務負擔。</div>
+        </details>
+        <details>
+            <summary>🏆 優勢 05：重金迎新的「獵英計畫」</summary>
+            <div class="detail-content">專為跳槽菁英設立，首年引進全新客戶，達標 AUM 最高可額外領取高達 37 萬元的豐厚獎金，且分階段發放，展現滿滿誠意。</div>
+        </details>
+        <details>
+            <summary>🏆 優勢 06：透明且無天花板的分段式獎金</summary>
+            <div class="detail-content">獎金採用分段式（Tier/Kicker）向上遞增計算，業績做越高、跳等的 % 數越高，最高階 ERM3 獎金率高達 27.5%，完全不設上限。</div>
+        </details>
+        <details>
+            <summary>🏆 優勢 07：兼顧質量的「60/40 考核雙軌制」</summary>
+            <div class="detail-content">財務指標最高只佔 60%，而非財務指標佔了 40%（包含客戶滿意度、作業品質等），讓理專能安心提供長期服務，不需被短線業績綁架。</div>
+        </details>
+        <details>
+            <summary>🏆 優勢 08：保護機制的公平待客原則</summary>
+            <div class="detail-content">對高齡客戶承作高風險商品有嚴謹的保護與手續費折算機制（七折至八五折不等），從源頭確保適合度評估，減少理專面對客訴糾紛的風險。</div>
+        </details>
+        <details>
+            <summary>🏆 優勢 09：優渥的高利儲蓄與持股信託</summary>
+            <div class="detail-content">提供最高額度 48 萬元的高利行存（2年期定儲機動利率加碼 5%），以及優於業界的持股信託補助（提存金行方加碼 30%）。</div>
+        </details>
+        <details>
+            <summary>🏆 優勢 10：豐厚的員工紅利與職務津貼</summary>
+            <div class="detail-content">每年約提撥 1 個月的員工紅利，且依照職級（專員至協理級），每月發放 900 至 3,600 元不等的定額獎勵金，實質提升整體薪資結構。</div>
+        </details>
+    </div>
+
+    <!-- 分頁 4：獎金計算公式 -->
+    <div id="Bonus" class="tab-content">
+        <h2>💰 遠銀理專獎金計算結構解析</h2>
+        <p class="tab-desc">點擊了解業界極具爆發力的分段式獎金制度</p>
+
+        <details>
+            <summary>核心公式與基本發放門檻</summary>
+            <div class="detail-content">
+                <p><b>公式：當季計績收益 × 獎金率 × 季平均加權評核結果</b></p>
+                <ul>
+                    <li><span class="highlight-text">計績收益：</span>(信託收益 + 非信託收益) - 基本產能</li>
+                    <li><span class="highlight-text">基本產能：</span>每月設定為理專薪資的 2.78 倍（一季以3個月計）</li>
+                    <li><span class="highlight-text">發放門檻：</span>「季平均加權評核結果」必須 ≥ 60 分才能發放獎金</li>
+                </ul>
+            </div>
+        </details>
+        
+        <details>
+            <summary>各職級分段式獎金率區間 (Tier/Kicker)</summary>
+            <div class="detail-content">
+                <p>遠銀獎金制度不設天花板，職級越高、業績越高，獎金乘數越驚人：</p>
+                <table>
+                    <tr>
+                        <th>職務別</th>
+                        <th>最低獎金率起始點</th>
+                        <th>最高獎金率 (達最高級距)</th>
+                    </tr>
+                    <tr><td>CRM1</td><td>7.0%</td><td>11.5%</td></tr>
+                    <tr><td>CRM2</td><td>9.5%</td><td>17.5%</td></tr>
+                    <tr><td>CRM3</td><td>11.0%</td><td>20.0%</td></tr>
+                    <tr><td>SRM1</td><td>11.5%</td><td>22.5%</td></tr>
+                    <tr><td>SRM2</td><td>13.5%</td><td>23.5%</td></tr>
+                    <tr><td>ERM1</td><td>16.0%</td><td>25.0%</td></tr>
+                    <tr><td>ERM2</td><td>18.5%</td><td>26.0%</td></tr>
+                    <tr><td>ERM3</td><td>20.0%</td><td>27.5%</td></tr>
+                </table>
+            </div>
+        </details>
+    </div>
+
+    <!-- 分頁 5：同業待遇比較 -->
+    <div id="Competitors" class="tab-content">
+        <h2>📊 市場同業待遇比較與優勢洞察</h2>
+        <p class="tab-desc">點擊展開市場情報，知己知彼掌握挖角致勝關鍵</p>
+
+        <details>
+            <summary>💡 總體洞察：遠銀為何具備極強說服力？</summary>
+            <div class="detail-content">
+                根據最新市場情報，公股主打穩定與優存，民營外商主打高獎金與高壓淘汰。<b>遠東商銀精準結合了「民營金控的高爆發力獎金制度」與「優渥的類公股福利（如持股信託加碼30%、高利行存加碼5%）」</b>，成為同時追求高薪與長治久安的菁英理專首選。
+            </div>
+        </details>
+
+        <details>
+            <summary>🏛️ 公股行庫 (如台銀、兆豐、一銀、台企銀)</summary>
+            <div class="detail-content">
+                <ul>
+                    <li><b>基本底薪：</b>起薪平均落在 39k–41k，升等後可達 54k 以上。</li>
+                    <li><b>年終獎金：</b>表現優異者年收可達 18–20 個月。如兆豐、一銀獎金優渥；台企銀甚至曾開出超越 8 個月的年終行情。</li>
+                    <li><b>隱形福利：</b>提供最高 13% 員工優惠存款（額度約48萬），每年光利息即增加約 5-6 萬元。</li>
+                    <li><b>痛點：</b>薪水調整與獎金有天花板限制，缺乏超額爆發力。</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>🏢 大型民營金控 (如富邦、中信、台新)</summary>
+            <div class="detail-content">
+                <ul>
+                    <li><b>富邦金控：</b>MA（儲備幹部）起薪約 69k-71k，年終中位數達 8 個月，績效頂尖者上看 20 個月。</li>
+                    <li><b>中信銀行：</b>中大型客戶 ARM 年薪約 70-110萬，升任 RM 後年薪可達 140萬至 230萬以上，業績導向極為明確。</li>
+                    <li><b>台新銀行：</b>理專試用期後起薪含伙食約 N+4400，獎金給得大方但 Goal（業績目標）相對較高。</li>
+                    <li><b>痛點：</b>淘汰機制激烈，末段班理專面臨極大流動壓力。</li>
+                </ul>
+            </div>
+        </details>
+
+        <details>
+            <summary>🌍 外商銀行 (如星展、滙豐)</summary>
+            <div class="detail-content">
+                <ul>
+                    <li><b>薪資結構：</b>起薪極高（約 78k-83k 起跳），部分職位保證年薪 14 個月。</li>
+                    <li><b>制度文化：</b>採用彈性薪資與極高比例的業績獎金，優秀人才 3-5 年內薪資翻倍。</li>
+                    <li><b>痛點：</b>伴隨外商文化的裁員風險與極大績效壓力，適合高度結果導向、抗壓極強的菁英。</li>
+                </ul>
+            </div>
+        </details>
+    </div>
+
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        // 隱藏所有內容
+        var tabcontent = document.getElementsByClassName("tab-content");
+        for (var i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+            tabcontent[i].classList.remove("active");
+        }
+        
+        // 移除按鈕的 active 狀態
+        var tabbuttons = document.getElementsByClassName("tab-button");
+        for (var i = 0; i < tabbuttons.length; i++) {
+            tabbuttons[i].classList.remove("active");
+        }
+        
+        // 顯示當前點擊的頁面並加入 active
+        document.getElementById(tabName).style.display = "block";
+        
+        // 觸發漸入動畫
+        document.getElementById(tabName).style.animation = 'none';
+        document.getElementById(tabName).offsetHeight; 
+        document.getElementById(tabName).style.animation = null;
+
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+</script>
+</body>
+</html>
