@@ -26,7 +26,7 @@
         }
 
         .container {
-            max-width: 1000px; /* 稍微縮小寬度讓金邊框架更緊湊有質感 */
+            max-width: 1000px; 
             margin: 0 auto;
             background: var(--white);
             border-radius: 15px;
@@ -130,7 +130,7 @@
         /* ★★★ 金邊互動框架設計 ★★★ */
         details {
             background: var(--white);
-            border: 2px solid var(--luxury-gold); /* 華麗金邊 */
+            border: 2px solid var(--luxury-gold); 
             border-radius: 10px;
             margin-bottom: 18px;
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.1);
@@ -147,7 +147,7 @@
             font-weight: bold;
             cursor: pointer;
             color: var(--primary-navy);
-            padding: 18px 20px 18px 55px; /* 留出左側加號的空間 */
+            padding: 18px 20px 18px 55px; 
             position: relative;
             list-style: none;
             font-size: 1.15em;
@@ -226,6 +226,13 @@
         }
         tr:hover td {
             background-color: #FDFBF7;
+        }
+        
+        /* 引用標籤 */
+        .cite {
+            font-size: 0.8em;
+            color: #888;
+            vertical-align: super;
         }
     </style>
 </head>
@@ -422,18 +429,18 @@
         <details>
             <summary>💡 總體洞察：遠銀為何具備極強說服力？</summary>
             <div class="detail-content">
-                根據最新市場情報，公股主打穩定與優存，民營外商主打高獎金與高壓淘汰。<b>遠東商銀精準結合了「民營金控的高爆發力獎金制度」與「優渥的類公股福利（如持股信託加碼30%、高利行存加碼5%）」</b>，成為同時追求高薪與長治久安的菁英理專首選。
+                根據最新市場情報，公股主打穩定與優存，民營外商主打高目標與高獎金。<b>遠東商銀則精準結合了「民營金控的無天花板獎金制度（最高27.5%）」與「類公股的豐厚福利（如持股信託加碼30%、高利行存加碼5%）」</b>，成為同時追求高薪與安穩職涯的菁英理專首選<span class="cite">[1-4]</span>。
             </div>
         </details>
 
         <details>
-            <summary>🏛️ 公股行庫 (如台銀、兆豐、一銀、台企銀)</summary>
+            <summary>🏛️ 公股行庫 (如台銀、兆豐、一銀、臺企銀)</summary>
             <div class="detail-content">
                 <ul>
-                    <li><b>基本底薪：</b>起薪平均落在 39k–41k，升等後可達 54k 以上。</li>
-                    <li><b>年終獎金：</b>表現優異者年收可達 18–20 個月。如兆豐、一銀獎金優渥；台企銀甚至曾開出超越 8 個月的年終行情。</li>
-                    <li><b>隱形福利：</b>提供最高 13% 員工優惠存款（額度約48萬），每年光利息即增加約 5-6 萬元。</li>
-                    <li><b>痛點：</b>薪水調整與獎金有天花板限制，缺乏超額爆發力。</li>
+                    <li><b>基本底薪：</b>起薪平均約落在 39k–41k，升等後可達 54k 以上<span class="cite">[5]</span>。</li>
+                    <li><b>年終與獎金：</b>考量年終及績效，年收入可達 18–20 個月<span class="cite">[5]</span>。近期臺企銀憑藉獲利新高，年終獎金更預估超過 8 個月<span class="cite">[6]</span>。</li>
+                    <li><b>隱形福利：</b>提供高達 13% 的員工優惠存款（額度約48萬），每年光利息即增加約 5-6 萬元<span class="cite">[5]</span>。</li>
+                    <li><b>痛點分析：</b>薪水調整與獎金有天花板限制，對於業績頂尖的業務人才來說缺乏超額爆發力。</li>
                 </ul>
             </div>
         </details>
@@ -442,10 +449,10 @@
             <summary>🏢 大型民營金控 (如富邦、中信、台新)</summary>
             <div class="detail-content">
                 <ul>
-                    <li><b>富邦金控：</b>MA（儲備幹部）起薪約 69k-71k，年終中位數達 8 個月，績效頂尖者上看 20 個月。</li>
-                    <li><b>中信銀行：</b>中大型客戶 ARM 年薪約 70-110萬，升任 RM 後年薪可達 140萬至 230萬以上，業績導向極為明確。</li>
-                    <li><b>台新銀行：</b>理專試用期後起薪含伙食約 N+4400，獎金給得大方但 Goal（業績目標）相對較高。</li>
-                    <li><b>痛點：</b>淘汰機制激烈，末段班理專面臨極大流動壓力。</li>
+                    <li><b>富邦金控：</b>MA（儲備幹部）起薪約 69k-71k，年終獎金中位數達 8 個月，最高更曾發放 20 個月<span class="cite">[1, 6]</span>。</li>
+                    <li><b>中信銀行：</b>法金/企金 RM 年薪約 140萬至 230萬以上<span class="cite">[7]</span>。個金理專試用期後起薪 N+3000，但業績目標門檻高，過試用期後手收目標需達 13.6萬至 17萬/月<span class="cite">[8]</span>。</li>
+                    <li><b>台新銀行：</b>理專試用期後起薪約 N+4400（含伙食津貼），獎金敢給但業績目標相對較高（試用期後目標 25萬/月）<span class="cite">[8]</span>。</li>
+                    <li><b>痛點分析：</b>淘汰機制激烈，末段班理專面臨極大的汰弱留強壓力與流動率<span class="cite">[7, 9]</span>。</li>
                 </ul>
             </div>
         </details>
@@ -454,9 +461,9 @@
             <summary>🌍 外商銀行 (如星展、滙豐)</summary>
             <div class="detail-content">
                 <ul>
-                    <li><b>薪資結構：</b>起薪極高（約 78k-83k 起跳），部分職位保證年薪 14 個月。</li>
-                    <li><b>制度文化：</b>採用彈性薪資與極高比例的業績獎金，優秀人才 3-5 年內薪資翻倍。</li>
-                    <li><b>痛點：</b>伴隨外商文化的裁員風險與極大績效壓力，適合高度結果導向、抗壓極強的菁英。</li>
+                    <li><b>薪資結構：</b>起薪極高（約 78k-83k 起跳），部分職位保證年薪高達 14 個月<span class="cite">[1]</span>。</li>
+                    <li><b>制度文化：</b>採用彈性薪資與極高比例的業績獎金，優秀人才 3-5 年內薪資翻倍，專注於特定財管或法金領域<span class="cite">[1, 9]</span>。</li>
+                    <li><b>痛點分析：</b>伴隨外商文化的極大績效壓力與高淘汰率機制，適合高度結果導向的菁英<span class="cite">[9]</span>。</li>
                 </ul>
             </div>
         </details>
