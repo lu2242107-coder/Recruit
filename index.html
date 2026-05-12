@@ -321,6 +321,36 @@
         <!-- ================= 分頁 4：獎金公式與試算器 ================= -->
         <div id="Bonus" class="tab-content">
             <div class="section-title">💰 獎金計算與互動試算</div>
+
+            <details>
+                <summary>🎯 2025年理專各職級業績目標表</summary>
+                <div class="detail-content">
+                    <table>
+                        <tr><th>職務別</th><th>總目標</th><th>信託收益(月)</th><th>非信託收益(月)</th></tr>
+                        <tr><td>CRM1</td><td>18萬</td><td>11萬</td><td>7萬</td></tr>
+                        <tr><td>CRM2</td><td>31萬</td><td>20萬</td><td>11萬</td></tr>
+                        <tr><td>CRM3</td><td>40萬</td><td>24萬</td><td>16萬</td></tr>
+                        <tr><td>SRM1</td><td>47萬</td><td>29萬</td><td>18萬</td></tr>
+                        <tr><td>SRM2</td><td>55萬</td><td>35萬</td><td>20萬</td></tr>
+                        <tr><td>ERM1</td><td>65萬</td><td>40萬</td><td>25萬</td></tr>
+                        <tr><td>ERM2</td><td>80萬</td><td>50萬</td><td>30萬</td></tr>
+                        <tr><td>ERM3</td><td>120萬</td><td>75萬</td><td>45萬</td></tr>
+                    </table>
+                    <p style="font-size:0.8em; color:#999; margin:10px 0 0 0; text-align:center;">*信託收益係指透過信託交易平台下單之手續費等收益，其餘屬非信託收益。</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>🔰 新進人員試用期目標及折算規範</summary>
+                <div class="detail-content">
+                    <p style="margin-top:0;">為體恤新進理專轉換跑道的適應期，新進 RM 依正式上任日(含)之月份起，目標及計績收益獎金率享有專屬的<b>「折算標準」</b>，讓您初期也能輕鬆達標：</p>
+                    <table>
+                        <tr><th>到職月數</th><th>第 1 個月</th><th>第 2 個月</th><th>第 3 個月</th><th>第 4 個月</th><th>第 5 個月</th><th>第 6 個月</th></tr>
+                        <tr><td style="color:var(--primary-navy); font-weight:bold;">折數 %</td><td style="color:#C00000; font-weight:bold;">20%</td><td style="color:#C00000; font-weight:bold;">20%</td><td style="color:#C00000; font-weight:bold;">40%</td><td style="color:#C00000; font-weight:bold;">40%</td><td style="color:#C00000; font-weight:bold;">60%</td><td style="color:#C00000; font-weight:bold;">60%</td></tr>
+                    </table>
+                    <p style="font-size:0.85em; color:#666; margin-top:10px; line-height:1.5;">註：若完成上任前必備事宜落於1~15日期間，則當月上任；若落於16日(含)以後，則完成後次月上任(經分行通路部個案核定之理專實際上任日，依核定公告為準)。</p>
+                </div>
+            </details>
             
             <details>
                 <summary>核心公式與發放門檻</summary>
@@ -337,31 +367,19 @@
             </details>
             
             <details>
-                <summary>分段式獎金率級距表</summary>
-                <div class="detail-content">
-                    <table>
-                        <tr><th>職務別</th><th>最低起跳率</th><th>最高級距率</th></tr>
-                        <tr><td>CRM1</td><td>7.0%</td><td>11.5%</td></tr>
-                        <tr><td>CRM2</td><td>9.5%</td><td>17.5%</td></tr>
-                        <tr><td>CRM3</td><td>11.0%</td><td>20.0%</td></tr>
-                        <tr><td>SRM1</td><td>11.5%</td><td>22.5%</td></tr>
-                        <tr><td>SRM2</td><td>13.5%</td><td>23.5%</td></tr>
-                        <tr><td>ERM1</td><td>16.0%</td><td>25.0%</td></tr>
-                        <tr><td>ERM2</td><td>18.5%</td><td>26.0%</td></tr>
-                        <tr><td>ERM3</td><td>20.0%</td><td>27.5%</td></tr>
-                    </table>
-                </div>
-            </details>
-
-            <details>
-                <summary>動態 RM 獎金模擬試算器</summary>
+                <summary>動態 RM 獎金模擬試算器 (全職級支援)</summary>
                 <div class="detail-content">
                     <div class="input-group">
                         <label>目標職級</label>
                         <select id="calc-level">
-                            <option value="CRM2">CRM2 (適合中階主力)</option>
-                            <option value="SRM1">SRM1 (適合高階戰將)</option>
-                            <option value="ERM1">ERM1 (適合頂尖王牌)</option>
+                            <option value="CRM1">CRM1</option>
+                            <option value="CRM2" selected>CRM2</option>
+                            <option value="CRM3">CRM3</option>
+                            <option value="SRM1">SRM1</option>
+                            <option value="SRM2">SRM2</option>
+                            <option value="ERM1">ERM1</option>
+                            <option value="ERM2">ERM2</option>
+                            <option value="ERM3">ERM3</option>
                         </select>
                     </div>
                     <div class="input-group">
@@ -449,7 +467,7 @@
 
     </main>
 
-    <!-- App 底部導覽列 -->
+    <!-- App 底部導覽列 (尊榮版) -->
     <nav class="bottom-nav">
         <a class="nav-item active" data-target="Strategy" onclick="openTab(event, 'Strategy')">
             <div class="nav-icon">🎯</div><span>策略</span>
@@ -474,39 +492,35 @@
             let input = document.getElementById('searchInput').value.toLowerCase();
             let activeTab = document.querySelector('.tab-content.active');
             
-            // 如果搜尋欄沒字，重置所有金邊框架
             if (input === "") {
                 let allDetails = activeTab.querySelectorAll('details');
                 let allCategoryTitles = activeTab.querySelectorAll('.category-title');
                 
                 allDetails.forEach(d => {
                     d.style.display = "block";
-                    d.open = false; // 恢復預設收合
+                    d.open = false; 
                 });
                 
                 allCategoryTitles.forEach(t => t.style.display = "block");
                 return;
             }
 
-            // 若有字，開始搜尋比對
             let activeDetails = activeTab.querySelectorAll('details');
             activeDetails.forEach(detail => {
                 let summaryText = detail.querySelector('summary').innerText.toLowerCase();
                 let contentText = detail.querySelector('.detail-content').innerText.toLowerCase();
                 
                 if (summaryText.includes(input) || contentText.includes(input)) {
-                    detail.style.display = "block"; // 顯示符合的項目
-                    detail.open = true;             // 自動展開讓使用者秒看答案！
+                    detail.style.display = "block"; 
+                    detail.open = true;             
                 } else {
-                    detail.style.display = "none";  // 隱藏不符合的項目
+                    detail.style.display = "none";  
                 }
             });
 
-            // 處理 Q&A 分類標題，若該分類下的題目全被隱藏，則隱藏該標題 (以防畫面太空洞)
             if (activeTab.id === 'Objections') {
                 let categoryTitles = activeTab.querySelectorAll('.category-title');
                 categoryTitles.forEach(title => {
-                    // 尋找這個標題直到下一個標題之間的所有 details
                     let nextElem = title.nextElementSibling;
                     let hasVisibleDetails = false;
                     while(nextElem && nextElem.tagName === 'DETAILS') {
@@ -523,7 +537,6 @@
 
         // 切換分頁邏輯
         function openTab(evt, tabName) {
-            // 切換前，先清空搜尋欄與重置搜尋結果防呆
             document.getElementById('searchInput').value = "";
             let allDetails = document.querySelectorAll('details');
             allDetails.forEach(d => {
@@ -533,22 +546,18 @@
             let allCategoryTitles = document.querySelectorAll('.category-title');
             allCategoryTitles.forEach(t => t.style.display = "block");
 
-            // 隱藏所有分頁內容
             var tabcontent = document.getElementsByClassName("tab-content");
             for (var i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
                 tabcontent[i].classList.remove("active");
             }
 
-            // 移除導覽列 active 狀態
             var navItems = document.getElementsByClassName("nav-item");
             for (var i = 0; i < navItems.length; i++) {
                 navItems[i].classList.remove("active");
             }
 
-            // 顯示目標分頁
             document.getElementById(tabName).style.display = "block";
-            
             document.getElementById(tabName).style.animation = 'none';
             document.getElementById(tabName).offsetHeight; 
             document.getElementById(tabName).style.animation = null;
@@ -562,7 +571,7 @@
             return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
 
-        // RM 季獎金試算邏輯
+        // RM 季獎金試算邏輯 (全職級精準涵蓋)
         function calculateBonus() {
             const level = document.getElementById('calc-level').value;
             const salary = parseFloat(document.getElementById('calc-salary').value) || 0;
@@ -577,12 +586,22 @@
             if (perfRev < 0) perfRev = 0;
 
             let rate = 0;
-            if (level === 'CRM2') {
+            if (level === 'CRM1') {
+                if (perfRev >= 1531000) rate = 0.115; else if (perfRev >= 991000) rate = 0.11; else if (perfRev >= 451000) rate = 0.105; else if (perfRev >= 181000) rate = 0.075; else if (perfRev >= 85000) rate = 0.07;
+            } else if (level === 'CRM2') {
                 if (perfRev >= 3735000) rate = 0.175; else if (perfRev >= 2805000) rate = 0.16; else if (perfRev >= 1875000) rate = 0.15; else if (perfRev >= 945000) rate = 0.135; else if (perfRev >= 480000) rate = 0.105; else if (perfRev >= 370000) rate = 0.095;
+            } else if (level === 'CRM3') {
+                if (perfRev >= 6100000) rate = 0.20; else if (perfRev >= 4900000) rate = 0.19; else if (perfRev >= 3700000) rate = 0.17; else if (perfRev >= 2500000) rate = 0.155; else if (perfRev >= 1300000) rate = 0.14; else if (perfRev >= 700000) rate = 0.13; else if (perfRev >= 497000) rate = 0.11;
             } else if (level === 'SRM1') {
                 if (perfRev >= 7885000) rate = 0.225; else if (perfRev >= 6475000) rate = 0.22; else if (perfRev >= 5065000) rate = 0.215; else if (perfRev >= 3655000) rate = 0.205; else if (perfRev >= 2597000) rate = 0.19; else if (perfRev >= 1540000) rate = 0.175; else if (perfRev >= 835000) rate = 0.14; else if (perfRev >= 652000) rate = 0.115;
+            } else if (level === 'SRM2') {
+                if (perfRev >= 10766000) rate = 0.235; else if (perfRev >= 8291000) rate = 0.23; else if (perfRev >= 6641000) rate = 0.225; else if (perfRev >= 4991000) rate = 0.215; else if (perfRev >= 3341000) rate = 0.205; else if (perfRev >= 1691000) rate = 0.19; else if (perfRev >= 866000) rate = 0.16; else if (perfRev >= 693000) rate = 0.135;
             } else if (level === 'ERM1') {
                 if (perfRev >= 16783000) rate = 0.25; else if (perfRev >= 12882000) rate = 0.24; else if (perfRev >= 9958000) rate = 0.235; else if (perfRev >= 8008000) rate = 0.23; else if (perfRev >= 6058000) rate = 0.225; else if (perfRev >= 4108000) rate = 0.22; else if (perfRev >= 2158000) rate = 0.205; else if (perfRev >= 1183000) rate = 0.18; else if (perfRev >= 930000) rate = 0.16;
+            } else if (level === 'ERM2') {
+                if (perfRev >= 20599000) rate = 0.26; else if (perfRev >= 15799000) rate = 0.25; else if (perfRev >= 12199000) rate = 0.245; else if (perfRev >= 9799000) rate = 0.24; else if (perfRev >= 7399000) rate = 0.235; else if (perfRev >= 4999000) rate = 0.225; else if (perfRev >= 2599000) rate = 0.22; else if (perfRev >= 1399000) rate = 0.205; else if (perfRev >= 1159000) rate = 0.185;
+            } else if (level === 'ERM3') {
+                if (perfRev >= 31399000) rate = 0.275; else if (perfRev >= 24199000) rate = 0.265; else if (perfRev >= 18799000) rate = 0.26; else if (perfRev >= 15199000) rate = 0.255; else if (perfRev >= 11599000) rate = 0.25; else if (perfRev >= 7999000) rate = 0.24; else if (perfRev >= 4399000) rate = 0.235; else if (perfRev >= 2599000) rate = 0.22; else if (perfRev >= 2239000) rate = 0.20;
             }
 
             const kpiMultiplier = kpi / 100;
