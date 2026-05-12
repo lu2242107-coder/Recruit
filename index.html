@@ -234,11 +234,20 @@
             display: flex; justify-content: space-between; align-items: center;
             margin-bottom: 20px; border-bottom: 2px solid var(--luxury-gold); padding-bottom: 10px;
         }
-        .admin-header h2 { color: var(--primary-navy); margin: 0; font-family: 'Noto Serif TC', serif; }
-        .admin-logout { padding: 8px 15px; background: #C00000; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .admin-header h2 { color: var(--primary-navy); margin: 0; font-family: 'Noto Serif TC', serif; font-size: 1.2em; }
+        .admin-btn { padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; border: none; }
+        .admin-close { background: #0F1C2E; color: var(--luxury-gold); border: 1px solid var(--luxury-gold); margin-right: 8px; }
+        .admin-logout { background: #C00000; color: white; }
         .admin-table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }
         .admin-table th, .admin-table td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; font-size: 0.9em; }
         .admin-table th { background: var(--primary-navy); color: var(--luxury-gold); }
+        
+        #adminToggleBtn {
+            display: none; position: absolute; right: 20px; top: 15px; 
+            background: var(--luxury-gold); color: var(--primary-navy); 
+            border: none; padding: 5px 12px; border-radius: 5px; 
+            font-weight: bold; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
 <body>
@@ -253,14 +262,17 @@
             <button class="auth-btn" onclick="verifyLogin()">進入系統</button>
             <p id="loginError" style="color:red; font-size: 0.9em; display:none; margin-top:10px;">帳號或密碼錯誤，請重新輸入</p>
         </div>
-        <p style="font-size: 0.8em; margin-top: 20px; opacity: 0.6;">版權所有 © 請勿翻拍</p>
+        <p style="font-size: 0.8em; margin-top: 20px; opacity: 0.6;">版權所有 © 遠東國際商業銀行</p>
     </div>
 
     <!-- ================= 新增：Tony 專屬後台面板 ================= -->
     <div id="adminPanel">
         <div class="admin-header">
-            <h2>📊 系統流量與登入統計 (Tony 專屬)</h2>
-            <button class="admin-logout" onclick="adminLogout()">登出系統</button>
+            <h2>📊 系統流量與登入統計</h2>
+            <div>
+                <button class="admin-btn admin-close" onclick="closeAdminPanel()">使用主系統</button>
+                <button class="admin-btn admin-logout" onclick="adminLogout()">登出</button>
+            </div>
         </div>
         <div style="overflow-x: auto;">
             <table class="admin-table">
@@ -283,6 +295,8 @@
     <!-- 頂部 Header -->
     <header class="app-header">
         <h1>遠銀菁英招募系統</h1>
+        <!-- 為管理員 Tony 準備的主系統捷徑切換按鈕 -->
+        <button id="adminToggleBtn" onclick="showAdminPanel()">後台</button>
         <div class="pwa-hint">點選「分享 ➔ 加入主畫面」解鎖全螢幕 App 體驗</div>
     </header>
 
@@ -424,6 +438,22 @@
                 </div>
             </details>
             
+            <!-- 補齊的核心公式與發放門檻區塊 -->
+            <details>
+                <summary>核心公式與發放門檻</summary>
+                <div class="detail-content">
+                    <p style="text-align:center; font-weight:bold; color:var(--primary-navy); font-size:1.1em; background:var(--gold-light); padding:10px; border-radius:8px; border: 1px solid var(--luxury-gold);">
+                        當季計績收益 × 獎金率 × 季平均加權評核結果
+                    </p>
+                    <ol style="font-size: 0.95em; padding-left: 20px; line-height: 1.8;">
+                        <li><span class="highlight-text">計績收益：</span>信託收益 ＋ 非信託收益 － 基本產能</li>
+                        <li><span class="highlight-text">基本產能：</span>每月基本產能為薪資之2.78倍 (一季為3個月)。<b>基本產能之訂定授權事業群主管依市場及業務需求調整。</b></li>
+                        <li><span class="highlight-text">獎金率：</span>採分段 (Tier/Kicker) 式獎金率計算。</li>
+                        <li><span class="highlight-text">發放門檻：</span>季平均加權評核結果需大於等於 60 分，始可發放獎金。</li>
+                    </ol>
+                </div>
+            </details>
+
             <details>
                 <summary>動態 RM 獎金模擬試算器 (全職級支援)</summary>
                 <div class="detail-content">
@@ -514,11 +544,10 @@
     </nav>
 
     <script>
-        // ================= 新增：系統入口與流量統計核心邏輯 =================
+        // ================= 系統入口與流量統計核心邏輯 =================
         
         // 此處預留給 Google Apps Script 的 Web App URL
-        // 只要把您的 Google Script URL 貼在這裡，紀錄就會自動飛進您的 Google Excel 裡！
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxpB4kFCwbu8C82fWt5tZoIvb5rWLJWSHjNyKqGEXye8NHF44OVu3sS-GXaVZsbv7g7/exec"; 
+        const GOOGLE_SCRIPT_URL = ""; 
 
         const VIP_ACCOUNTS = {
             "VIP001": "123456",
@@ -536,7 +565,6 @@
             startTime: null
         };
 
-        // 從本地抓取現有日誌 (為了讓管理員能立即看到效果)
         function getLocalLogs() {
             return JSON.parse(localStorage.getItem('recruitmentAppLogs')) || [];
         }
@@ -550,27 +578,24 @@
             const userPwd = document.getElementById('loginPwd').value.trim();
             const errorMsg = document.getElementById('loginError');
 
-            // 管理員通道
+            // 🌟 管理員 Tony 專屬通道：登入後可同時看後台與使用系統
             if (userId === ADMIN_ID && userPwd === ADMIN_PWD) {
                 document.getElementById('authOverlay').style.display = 'none';
-                showAdminPanel();
+                document.getElementById('adminToggleBtn').style.display = 'block'; // 顯示招募頁右上角後台按鈕
+                showAdminPanel(); // 預設先開啟後台
                 return;
             }
 
             // VIP 通道
             if (VIP_ACCOUNTS[userId] && VIP_ACCOUNTS[userId] === userPwd) {
                 errorMsg.style.display = 'none';
-                
-                // 1. 解鎖畫面
                 document.getElementById('authOverlay').style.display = 'none';
                 
-                // 2. 初始化統計資料
                 currentSession.user = userId;
                 currentSession.startTime = Date.now();
                 currentSession.loginTime = new Date().toLocaleString();
                 currentSession.id = "session_" + currentSession.startTime;
 
-                // 3. 獲取真實 IP
                 try {
                     let response = await fetch('https://api.ipify.org?format=json');
                     let data = await response.json();
@@ -579,7 +604,6 @@
                     currentSession.ip = "無法獲取";
                 }
 
-                // 4. 將第一筆「登入」紀錄寫入本地 (供 Tony 觀看)
                 let logs = getLocalLogs();
                 logs.unshift({
                     id: currentSession.id,
@@ -590,7 +614,6 @@
                 });
                 saveLocalLogs(logs);
 
-                // 5. 若有設定 Google Script，將登入紀錄推送到雲端
                 if(GOOGLE_SCRIPT_URL) {
                     fetch(`${GOOGLE_SCRIPT_URL}?action=login&user=${currentSession.user}&ip=${currentSession.ip}&time=${currentSession.loginTime}`, { mode: 'no-cors' });
                 }
@@ -600,7 +623,6 @@
             }
         }
 
-        // 結算停留時間
         function updateDuration() {
             if (!currentSession.user) return;
             const stayMs = Date.now() - currentSession.startTime;
@@ -608,7 +630,6 @@
             const seconds = Math.floor((stayMs % 60000) / 1000);
             const durationStr = `${minutes}分 ${seconds}秒`;
 
-            // 更新本地紀錄
             let logs = getLocalLogs();
             let sessionIndex = logs.findIndex(l => l.id === currentSession.id);
             if(sessionIndex > -1) {
@@ -616,13 +637,11 @@
                 saveLocalLogs(logs);
             }
 
-            // 若有設定 Google Script，將登出/停留時間推送到雲端
             if(GOOGLE_SCRIPT_URL && navigator.sendBeacon) {
                 navigator.sendBeacon(`${GOOGLE_SCRIPT_URL}?action=logout&user=${currentSession.user}&duration=${durationStr}`);
             }
         }
 
-        // 當使用者切換 App 或是關閉網頁時結算時間
         document.addEventListener("visibilitychange", function() {
             if (document.visibilityState === 'hidden') {
                 updateDuration();
@@ -630,7 +649,6 @@
         });
         window.addEventListener("pagehide", updateDuration);
 
-        // 管理員面板邏輯
         function showAdminPanel() {
             document.getElementById('adminPanel').style.display = 'block';
             const tbody = document.getElementById('adminTableBody');
@@ -654,11 +672,18 @@
             });
         }
 
+        // 🌟 新增：讓 Tony 可以隱藏後台去操作主系統
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').style.display = 'none';
+        }
+
+        // 🌟 登出時要連同按鈕一起隱藏
         function adminLogout() {
             document.getElementById('adminPanel').style.display = 'none';
             document.getElementById('authOverlay').style.display = 'flex';
             document.getElementById('loginId').value = "";
             document.getElementById('loginPwd').value = "";
+            document.getElementById('adminToggleBtn').style.display = 'none';
         }
 
         // ================= 原有邏輯完全保留 =================
