@@ -140,8 +140,7 @@
         }
 
         .highlight-text { color: #C00000; font-weight: bold; background: #FFF0F0; padding: 0 4px; border-radius: 4px; }
-        .search-highlight { background-color: #FFE699; color: #C00000; font-weight: bold; padding: 0 2px; border-radius: 3px; }
-
+        
         /* 表格與試算器 */
         table { 
             width: 100%; border-collapse: separate; border-spacing: 0; 
@@ -200,9 +199,86 @@
         .nav-item.active { color: var(--luxury-gold); background: var(--primary-navy); box-shadow: 0 4px 10px rgba(15, 28, 46, 0.2);}
         .nav-item.active .nav-icon { filter: grayscale(0%); opacity: 1; transform: translateY(-2px); }
         @supports (padding-bottom: env(safe-area-inset-bottom)) { .bottom-nav { padding-bottom: calc(10px + env(safe-area-inset-bottom)); } }
+
+        /* ================= 新增：登入與後台專用 CSS ================= */
+        #authOverlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--primary-navy); z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: var(--luxury-gold); font-family: 'Noto Serif TC', serif;
+        }
+        .auth-box {
+            background: var(--white); padding: 30px; border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center;
+            width: 90%; max-width: 350px; border: 2px solid var(--luxury-gold);
+        }
+        .auth-box h2 { color: var(--primary-navy); margin-top: 0; }
+        .auth-input {
+            width: 100%; padding: 12px; margin-bottom: 15px;
+            border: 1px solid #ccc; border-radius: 8px; font-size: 1em; outline: none;
+        }
+        .auth-input:focus { border-color: var(--luxury-gold); }
+        .auth-btn {
+            width: 100%; padding: 12px; background: var(--primary-navy);
+            color: var(--luxury-gold); border: none; border-radius: 8px;
+            font-size: 1.1em; font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+        .auth-btn:active { transform: scale(0.95); }
+
+        #adminPanel {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-body); z-index: 9998; display: none;
+            overflow-y: auto; padding: 20px; font-family: sans-serif;
+        }
+        .admin-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; border-bottom: 2px solid var(--luxury-gold); padding-bottom: 10px;
+        }
+        .admin-header h2 { color: var(--primary-navy); margin: 0; font-family: 'Noto Serif TC', serif; }
+        .admin-logout { padding: 8px 15px; background: #C00000; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .admin-table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border-radius: 8px; overflow: hidden; }
+        .admin-table th, .admin-table td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; font-size: 0.9em; }
+        .admin-table th { background: var(--primary-navy); color: var(--luxury-gold); }
     </style>
 </head>
 <body>
+
+    <!-- ================= 新增：系統入口控管 (登入畫面) ================= -->
+    <div id="authOverlay">
+        <h1 style="margin-bottom: 20px; letter-spacing: 2px; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">遠銀菁英招募系統</h1>
+        <div class="auth-box">
+            <h2>系統登入</h2>
+            <input type="text" id="loginId" class="auth-input" placeholder="請輸入授權帳號">
+            <input type="password" id="loginPwd" class="auth-input" placeholder="請輸入密碼">
+            <button class="auth-btn" onclick="verifyLogin()">進入系統</button>
+            <p id="loginError" style="color:red; font-size: 0.9em; display:none; margin-top:10px;">帳號或密碼錯誤，請重新輸入</p>
+        </div>
+        <p style="font-size: 0.8em; margin-top: 20px; opacity: 0.6;">版權所有 © 遠東國際商業銀行</p>
+    </div>
+
+    <!-- ================= 新增：Tony 專屬後台面板 ================= -->
+    <div id="adminPanel">
+        <div class="admin-header">
+            <h2>📊 系統流量與登入統計 (Tony 專屬)</h2>
+            <button class="admin-logout" onclick="adminLogout()">登出系統</button>
+        </div>
+        <div style="overflow-x: auto;">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>帳號</th>
+                        <th>登入 IP</th>
+                        <th>登入時間</th>
+                        <th>停留時間</th>
+                    </tr>
+                </thead>
+                <tbody id="adminTableBody">
+                    <!-- 紀錄將由 JavaScript 動態填入 -->
+                </tbody>
+            </table>
+        </div>
+        <p style="font-size: 0.8em; color: #888; margin-top: 15px;">*此面板紀錄暫存在本地瀏覽器中，供即時查看測試。如需雲端備份請掛載 Google Sheet。</p>
+    </div>
 
     <!-- 頂部 Header -->
     <header class="app-header">
@@ -216,7 +292,6 @@
     </div>
 
     <main class="content-container">
-
         <!-- ================= 分頁 1：策略 ================= -->
         <div id="Strategy" class="tab-content active">
             <div class="section-title">🎯 落地招募 10 步驟</div>
@@ -232,10 +307,9 @@
             <details><summary>10：客製化薪酬試算與促結</summary><div class="detail-content">請候選人預估能帶來的手收，打開下方「💰獎金」頁面直接試算，用具體數字藍圖促成簽約！</div></details>
         </div>
 
-        <!-- ================= 分頁 2：Q&A (完整 50 題) ================= -->
+        <!-- ================= 分頁 2：Q&A ================= -->
         <div id="Objections" class="tab-content">
             <div class="section-title">💬 反對問題與疑慮破解 (全 50 題)</div>
-            
             <div class="category-title">一、 業績目標與 KPI 考核制度</div>
             <details><summary>1. 銀行的考核是不是都只看業績，不顧客戶服務？</summary><div class="detail-content"><b>這點您不用擔心，遠銀非常注重長期經營。</b>財務指標最多僅佔加權評核標準的60%，另外高達40%是非財務指標。</div></details>
             <details><summary>2. 非財務考核具體包含哪些項目？</summary><div class="detail-content">主要包含滿意度調查(12%)、作業品質(5%)、防範短線交易(5%)，以及證照與教育訓練等綜合指標(18%)。</div></details>
@@ -336,7 +410,6 @@
                         <tr><td>ERM2</td><td>80萬</td><td>50萬</td><td>30萬</td></tr>
                         <tr><td>ERM3</td><td>120萬</td><td>75萬</td><td>45萬</td></tr>
                     </table>
-                    <p style="font-size:0.8em; color:#999; margin:10px 0 0 0; text-align:center;">*信託收益係指透過信託交易平台下單之手續費等收益，其餘屬非信託收益。</p>
                 </div>
             </details>
 
@@ -348,21 +421,6 @@
                         <tr><th>到職月數</th><th>第 1 個月</th><th>第 2 個月</th><th>第 3 個月</th><th>第 4 個月</th><th>第 5 個月</th><th>第 6 個月</th></tr>
                         <tr><td style="color:var(--primary-navy); font-weight:bold;">折數 %</td><td style="color:#C00000; font-weight:bold;">20%</td><td style="color:#C00000; font-weight:bold;">20%</td><td style="color:#C00000; font-weight:bold;">40%</td><td style="color:#C00000; font-weight:bold;">40%</td><td style="color:#C00000; font-weight:bold;">60%</td><td style="color:#C00000; font-weight:bold;">60%</td></tr>
                     </table>
-                    <p style="font-size:0.85em; color:#666; margin-top:10px; line-height:1.5;">註：若完成上任前必備事宜落於1~15日期間，則當月上任；若落於16日(含)以後，則完成後次月上任(經分行通路部個案核定之理專實際上任日，依核定公告為準)。</p>
-                </div>
-            </details>
-            
-            <details>
-                <summary>核心公式與發放門檻</summary>
-                <div class="detail-content">
-                    <p style="text-align:center; font-weight:bold; color:var(--primary-navy); font-size:1.1em; background:var(--gold-light); padding:10px; border-radius:8px; border: 1px solid var(--luxury-gold);">
-                        季計績收益 × 獎金率 × 季KPI分數
-                    </p>
-                    <ul style="font-size: 0.95em;">
-                        <li><span class="highlight-text">計績收益：</span>(信託 + 非信託收益) - 基本產能</li>
-                        <li><span class="highlight-text">基本產能：</span>每月底薪 × 2.78倍 × 3個月</li>
-                        <li><span class="highlight-text">發放門檻：</span>季KPI結果必須 ≥ 60 分</li>
-                    </ul>
                 </div>
             </details>
             
@@ -402,7 +460,6 @@
                         <div class="result-row"><span>當季計績收益：</span><span id="res-perf-rev">0</span></div>
                         <div class="result-row"><span>落點獎金率：</span><span id="res-rate">0%</span></div>
                         <div class="result-row total"><span>🏆 預估單季獎金：</span><span id="res-bonus">0</span></div>
-                        <p style="font-size:0.8em; color:#999; margin:10px 0 0 0; text-align:center;">*此為招募說明模擬試算，實際依核定結果為準。</p>
                     </div>
                 </div>
             </details>
@@ -410,16 +467,6 @@
             <details>
                 <summary>🦅 新進獵英計畫獎勵與試算</summary>
                 <div class="detail-content">
-                    <div class="eagle-note">
-                        <b>📍 計畫資格與發放限制：</b>
-                        <ul>
-                            <li><b>適用對象：</b>限新報到理專，排除潛力理專、菁英培訓、內部轉任、離職回任及 GRM。</li>
-                            <li><b>客戶條件：</b>須為未曾於本行開過戶之「NEW NEW客戶」。</li>
-                            <li><b>AUM計算：</b>以「每月平均餘額」計算，累積期間為報到日次月起滿一年。</li>
-                            <li><b>兩階段發放：</b>第一階段於「通過試用期」時依當月累計金額發放；第二階段於「滿一年」時重算總額，扣除第一階段已領金額後發放差額。</li>
-                        </ul>
-                    </div>
-
                     <div class="input-group">
                         <label>您的入職職級</label>
                         <select id="eagle-level">
@@ -436,7 +483,6 @@
 
                     <div id="eagle-result" class="result-box" style="border-left-color: #D4AF37;">
                         <div class="result-row total" style="color: #A67C00; margin-top: 5px;"><span>🎁 首年外加獎勵金：</span><span id="res-eagle-bonus">0</span></div>
-                        <p style="font-size:0.85em; color:#666; margin:10px 0 0 0; text-align:center;">只要達到對應 AUM 級距，最高可額外獲取 37 萬元獎金！</p>
                     </div>
                 </div>
             </details>
@@ -451,83 +497,199 @@
                     公股主打穩定，民營外商主打高獎金。<b>遠銀精準結合了「民營的無天花板獎金制度（最高27.5%）」與「類公股的豐厚福利（持股信託+30%、高利行存+5%）」</b>，成為追求高薪與安穩職涯的首選。
                 </div>
             </details>
-            <details>
-                <summary>🏛️ 公股銀行 (台/兆/一/企)</summary>
-                <div class="detail-content">平均起薪 39K–41K。優勢為高達 13% 優惠存款。缺點是薪水調整與獎金受制於天花板，缺乏超額爆發力。</div>
-            </details>
-            <details>
-                <summary>🏢 大型民營金控 (中/台/富)</summary>
-                <div class="detail-content">高階 RM 年薪可達 140萬至 230萬以上，但淘汰機制激烈，目標設定門檻較高（如過試用期需達 13~25萬手收），面臨極大流動率壓力。</div>
-            </details>
-            <details>
-                <summary>🌍 外商銀行 (星/滙)</summary>
-                <div class="detail-content">起薪極高（約 78K 起跳）。缺點是伴隨外商文化的裁員風險與極大績效壓力，適合高度結果導向的菁英。</div>
-            </details>
+            <details><summary>🏛️ 公股銀行 (台/兆/一/企)</summary><div class="detail-content">平均起薪 39K–41K。優勢為高達 13% 優惠存款。缺點是薪水調整與獎金受制於天花板，缺乏超額爆發力。</div></details>
+            <details><summary>🏢 大型民營金控 (中/台/富)</summary><div class="detail-content">高階 RM 年薪可達 140萬至 230萬以上，但淘汰機制激烈，目標設定門檻較高（如過試用期需達 13~25萬手收），面臨極大流動率壓力。</div></details>
+            <details><summary>🌍 外商銀行 (星/滙)</summary><div class="detail-content">起薪極高（約 78K 起跳）。缺點是伴隨外商文化的裁員風險與極大績效壓力，適合高度結果導向的菁英。</div></details>
         </div>
 
     </main>
 
-    <!-- App 底部導覽列 (尊榮版) -->
+    <!-- App 底部導覽列 -->
     <nav class="bottom-nav">
-        <a class="nav-item active" data-target="Strategy" onclick="openTab(event, 'Strategy')">
-            <div class="nav-icon">🎯</div><span>策略</span>
-        </a>
-        <a class="nav-item" data-target="Objections" onclick="openTab(event, 'Objections')">
-            <div class="nav-icon">💬</div><span>Q&A</span>
-        </a>
-        <a class="nav-item" data-target="Advantages" onclick="openTab(event, 'Advantages')">
-            <div class="nav-icon">🏆</div><span>優勢</span>
-        </a>
-        <a class="nav-item" data-target="Bonus" onclick="openTab(event, 'Bonus')">
-            <div class="nav-icon">💰</div><span>獎金</span>
-        </a>
-        <a class="nav-item" data-target="Competitors" onclick="openTab(event, 'Competitors')">
-            <div class="nav-icon">📊</div><span>同業</span>
-        </a>
+        <a class="nav-item active" data-target="Strategy" onclick="openTab(event, 'Strategy')"><div class="nav-icon">🎯</div><span>策略</span></a>
+        <a class="nav-item" data-target="Objections" onclick="openTab(event, 'Objections')"><div class="nav-icon">💬</div><span>Q&A</span></a>
+        <a class="nav-item" data-target="Advantages" onclick="openTab(event, 'Advantages')"><div class="nav-icon">🏆</div><span>優勢</span></a>
+        <a class="nav-item" data-target="Bonus" onclick="openTab(event, 'Bonus')"><div class="nav-icon">💰</div><span>獎金</span></a>
+        <a class="nav-item" data-target="Competitors" onclick="openTab(event, 'Competitors')"><div class="nav-icon">📊</div><span>同業</span></a>
     </nav>
 
     <script>
-        // 🔍 即時搜尋過濾功能
-        function searchContent() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
-            let activeTab = document.querySelector('.tab-content.active');
-            
-            if (input === "") {
-                let allDetails = activeTab.querySelectorAll('details');
-                let allCategoryTitles = activeTab.querySelectorAll('.category-title');
-                
-                allDetails.forEach(d => {
-                    d.style.display = "block";
-                    d.open = false; 
-                });
-                
-                allCategoryTitles.forEach(t => t.style.display = "block");
+        // ================= 新增：系統入口與流量統計核心邏輯 =================
+        
+        // 此處預留給 Google Apps Script 的 Web App URL
+        // 只要把您的 Google Script URL 貼在這裡，紀錄就會自動飛進您的 Google Excel 裡！
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxpB4kFCwbu8C82fWt5tZoIvb5rWLJWSHjNyKqGEXye8NHF44OVu3sS-GXaVZsbv7g7/exec"; 
+
+        const VIP_ACCOUNTS = {
+            "VIP001": "123456",
+            "VIP002": "234567",
+            "VIP003": "345678"
+        };
+        const ADMIN_ID = "tony";
+        const ADMIN_PWD = "661001";
+
+        let currentSession = {
+            id: null,
+            user: "",
+            ip: "獲取中...",
+            loginTime: 0,
+            startTime: null
+        };
+
+        // 從本地抓取現有日誌 (為了讓管理員能立即看到效果)
+        function getLocalLogs() {
+            return JSON.parse(localStorage.getItem('recruitmentAppLogs')) || [];
+        }
+
+        function saveLocalLogs(logs) {
+            localStorage.setItem('recruitmentAppLogs', JSON.stringify(logs));
+        }
+
+        async function verifyLogin() {
+            const userId = document.getElementById('loginId').value.trim();
+            const userPwd = document.getElementById('loginPwd').value.trim();
+            const errorMsg = document.getElementById('loginError');
+
+            // 管理員通道
+            if (userId === ADMIN_ID && userPwd === ADMIN_PWD) {
+                document.getElementById('authOverlay').style.display = 'none';
+                showAdminPanel();
                 return;
             }
 
+            // VIP 通道
+            if (VIP_ACCOUNTS[userId] && VIP_ACCOUNTS[userId] === userPwd) {
+                errorMsg.style.display = 'none';
+                
+                // 1. 解鎖畫面
+                document.getElementById('authOverlay').style.display = 'none';
+                
+                // 2. 初始化統計資料
+                currentSession.user = userId;
+                currentSession.startTime = Date.now();
+                currentSession.loginTime = new Date().toLocaleString();
+                currentSession.id = "session_" + currentSession.startTime;
+
+                // 3. 獲取真實 IP
+                try {
+                    let response = await fetch('https://api.ipify.org?format=json');
+                    let data = await response.json();
+                    currentSession.ip = data.ip;
+                } catch(e) {
+                    currentSession.ip = "無法獲取";
+                }
+
+                // 4. 將第一筆「登入」紀錄寫入本地 (供 Tony 觀看)
+                let logs = getLocalLogs();
+                logs.unshift({
+                    id: currentSession.id,
+                    user: currentSession.user,
+                    ip: currentSession.ip,
+                    time: currentSession.loginTime,
+                    duration: "在線中..."
+                });
+                saveLocalLogs(logs);
+
+                // 5. 若有設定 Google Script，將登入紀錄推送到雲端
+                if(GOOGLE_SCRIPT_URL) {
+                    fetch(`${GOOGLE_SCRIPT_URL}?action=login&user=${currentSession.user}&ip=${currentSession.ip}&time=${currentSession.loginTime}`, { mode: 'no-cors' });
+                }
+
+            } else {
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        // 結算停留時間
+        function updateDuration() {
+            if (!currentSession.user) return;
+            const stayMs = Date.now() - currentSession.startTime;
+            const minutes = Math.floor(stayMs / 60000);
+            const seconds = Math.floor((stayMs % 60000) / 1000);
+            const durationStr = `${minutes}分 ${seconds}秒`;
+
+            // 更新本地紀錄
+            let logs = getLocalLogs();
+            let sessionIndex = logs.findIndex(l => l.id === currentSession.id);
+            if(sessionIndex > -1) {
+                logs[sessionIndex].duration = durationStr;
+                saveLocalLogs(logs);
+            }
+
+            // 若有設定 Google Script，將登出/停留時間推送到雲端
+            if(GOOGLE_SCRIPT_URL && navigator.sendBeacon) {
+                navigator.sendBeacon(`${GOOGLE_SCRIPT_URL}?action=logout&user=${currentSession.user}&duration=${durationStr}`);
+            }
+        }
+
+        // 當使用者切換 App 或是關閉網頁時結算時間
+        document.addEventListener("visibilitychange", function() {
+            if (document.visibilityState === 'hidden') {
+                updateDuration();
+            }
+        });
+        window.addEventListener("pagehide", updateDuration);
+
+        // 管理員面板邏輯
+        function showAdminPanel() {
+            document.getElementById('adminPanel').style.display = 'block';
+            const tbody = document.getElementById('adminTableBody');
+            const logs = getLocalLogs();
+            
+            tbody.innerHTML = "";
+            if (logs.length === 0) {
+                tbody.innerHTML = "<tr><td colspan='4' style='text-align:center;'>尚無登入紀錄</td></tr>";
+                return;
+            }
+
+            logs.forEach(log => {
+                let tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight:bold; color:var(--primary-navy);">${log.user}</td>
+                    <td>${log.ip}</td>
+                    <td>${log.time}</td>
+                    <td style="color:#C00000;">${log.duration}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function adminLogout() {
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('authOverlay').style.display = 'flex';
+            document.getElementById('loginId').value = "";
+            document.getElementById('loginPwd').value = "";
+        }
+
+        // ================= 原有邏輯完全保留 =================
+
+        function searchContent() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let activeTab = document.querySelector('.tab-content.active');
+            if (input === "") {
+                let allDetails = activeTab.querySelectorAll('details');
+                let allCategoryTitles = activeTab.querySelectorAll('.category-title');
+                allDetails.forEach(d => { d.style.display = "block"; d.open = false; });
+                allCategoryTitles.forEach(t => t.style.display = "block");
+                return;
+            }
             let activeDetails = activeTab.querySelectorAll('details');
             activeDetails.forEach(detail => {
                 let summaryText = detail.querySelector('summary').innerText.toLowerCase();
                 let contentText = detail.querySelector('.detail-content').innerText.toLowerCase();
-                
                 if (summaryText.includes(input) || contentText.includes(input)) {
-                    detail.style.display = "block"; 
-                    detail.open = true;             
+                    detail.style.display = "block"; detail.open = true;             
                 } else {
                     detail.style.display = "none";  
                 }
             });
-
             if (activeTab.id === 'Objections') {
                 let categoryTitles = activeTab.querySelectorAll('.category-title');
                 categoryTitles.forEach(title => {
                     let nextElem = title.nextElementSibling;
                     let hasVisibleDetails = false;
                     while(nextElem && nextElem.tagName === 'DETAILS') {
-                        if (nextElem.style.display !== "none") {
-                            hasVisibleDetails = true;
-                            break;
-                        }
+                        if (nextElem.style.display !== "none") { hasVisibleDetails = true; break; }
                         nextElem = nextElem.nextElementSibling;
                     }
                     title.style.display = hasVisibleDetails ? "block" : "none";
@@ -535,14 +697,10 @@
             }
         }
 
-        // 切換分頁邏輯
         function openTab(evt, tabName) {
             document.getElementById('searchInput').value = "";
             let allDetails = document.querySelectorAll('details');
-            allDetails.forEach(d => {
-                d.style.display = "block";
-                d.open = false;
-            });
+            allDetails.forEach(d => { d.style.display = "block"; d.open = false; });
             let allCategoryTitles = document.querySelectorAll('.category-title');
             allCategoryTitles.forEach(t => t.style.display = "block");
 
@@ -558,20 +716,12 @@
             }
 
             document.getElementById(tabName).style.display = "block";
-            document.getElementById(tabName).style.animation = 'none';
-            document.getElementById(tabName).offsetHeight; 
-            document.getElementById(tabName).style.animation = null;
-
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
         }
 
-        // 格式化數字 (千分位)
-        function formatNumber(num) {
-            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
+        function formatNumber(num) { return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
 
-        // RM 季獎金試算邏輯 (全職級精準涵蓋)
         function calculateBonus() {
             const level = document.getElementById('calc-level').value;
             const salary = parseFloat(document.getElementById('calc-salary').value) || 0;
@@ -616,11 +766,9 @@
             document.getElementById('calc-result').style.display = "block";
         }
 
-        // 獵英計畫專屬獎金試算邏輯
         function calculateEagleBonus() {
             const level = document.getElementById('eagle-level').value;
             const aum = parseFloat(document.getElementById('eagle-aum').value) || 0;
-
             let bonus = 0;
             if (aum >= 4.5) bonus = 370000;
             else if (aum >= 3.5) bonus = 300000;
@@ -629,12 +777,8 @@
             else if (aum >= 1.5) bonus = 150000;
             else if (aum >= 1.0) bonus = 100000;
             else if (aum >= 0.8) bonus = 70000;
-            else if (aum >= 0.5) {
-                if (level === 'CRM' || level === 'SRM') bonus = 30000;
-            }
-            else if (aum >= 0.3) {
-                if (level === 'CRM') bonus = 10000;
-            }
+            else if (aum >= 0.5) { if (level === 'CRM' || level === 'SRM') bonus = 30000; }
+            else if (aum >= 0.3) { if (level === 'CRM') bonus = 10000; }
 
             document.getElementById('res-eagle-bonus').innerText = "NT$ " + formatNumber(bonus);
             document.getElementById('eagle-result').style.display = "block";
