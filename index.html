@@ -2,7 +2,6 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <!-- PWA Web App 必備標籤 (支援 iOS 與 Android) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -10,17 +9,13 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#0F1C2E">
     
-    <!-- 嵌入式 Manifest，讓 Android 完美識別為 App -->
     <link rel="manifest" href='data:application/manifest+json;charset=utf-8,{"name":"遠銀理專招募秘笈","short_name":"遠銀招募","display":"standalone","background_color":"#F4F6F8","theme_color":"#0F1C2E","icons":[{"src":"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI0Q0QUYzNyIvPjx0ZXh0IHg9IjUwIiB5PSI2NSIgZm9udC1zaXplPSI1MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzBGMUMyRSI+5ouUPC90ZXh0Pjwvc3ZnPg==","sizes":"192x192","type":"image/svg+xml"}]}'>
     <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI0Q0QUYzNyIvPjx0ZXh0IHg9IjUwIiB5PSI2NSIgZm9udC1zaXplPSI1MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzBGMUMyRSI+5ouUPC90ZXh0Pjwvc3ZnPg==">
 
     <title>遠銀理專 招募秘笈 App</title>
-    
-    <!-- 引入優雅的襯線字體 -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
-        /* 尊榮高貴色系定義 */
         :root {
             --primary-navy: #0F1C2E;
             --luxury-gold: #D4AF37;
@@ -41,7 +36,6 @@
             padding-bottom: 90px;
         }
 
-        /* 頂部 Header */
         .app-header {
             background: linear-gradient(135deg, var(--primary-navy) 0%, #1A2A42 100%);
             padding: calc(15px + env(safe-area-inset-top)) 20px 20px;
@@ -64,7 +58,38 @@
             letter-spacing: 1px;
         }
 
-        .content-container { padding: 25px 15px; flex: 1; max-width: 800px; margin: 0 auto; width: 100%; }
+        /* 搜尋列樣式 */
+        .search-container {
+            padding: 15px 20px 5px 20px;
+            background: var(--bg-body);
+            position: sticky; 
+            top: 85px; 
+            z-index: 99;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px 12px 45px;
+            border: 2px solid var(--luxury-gold);
+            border-radius: 30px;
+            font-size: 1.05em;
+            outline: none;
+            color: var(--primary-navy);
+            background-color: var(--white);
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.1);
+            transition: all 0.3s ease;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23D4AF37"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 12.01 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 12.01 14 9.5 14z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: 12px 10px;
+            background-size: 24px;
+        }
+
+        .search-input:focus {
+            box-shadow: 0 4px 15px rgba(15, 28, 46, 0.15);
+            border-color: var(--primary-navy);
+        }
+
+        .content-container { padding: 10px 15px 25px 15px; flex: 1; max-width: 800px; margin: 0 auto; width: 100%; }
         .tab-content { display: none; animation: fadeIn 0.5s ease; }
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -78,19 +103,14 @@
         }
 
         .category-title {
-            color: var(--primary-navy);
-            font-family: 'Noto Serif TC', serif;
-            font-size: 1.15em;
-            font-weight: bold;
-            margin: 25px 0 15px 0;
-            padding-left: 12px;
-            border-left: 4px solid var(--luxury-gold);
+            color: var(--primary-navy); font-family: 'Noto Serif TC', serif;
+            font-size: 1.15em; font-weight: bold; margin: 25px 0 15px 0;
+            padding-left: 12px; border-left: 4px solid var(--luxury-gold);
         }
 
-        /* ★★★ 核心：金邊互動框架設計 (全預設收合) ★★★ */
+        /* 金邊互動框架 */
         details {
-            background: var(--white);
-            border: 2px solid var(--luxury-gold); 
+            background: var(--white); border: 2px solid var(--luxury-gold); 
             border-radius: 12px; margin-bottom: 14px;
             box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
             overflow: hidden; transition: all 0.4s ease;
@@ -119,9 +139,10 @@
             background-color: #FAFAFA; border-top: 2px solid var(--luxury-gold);
         }
 
-        .highlight-text { color: #C00000; font-weight: bold; }
+        .highlight-text { color: #C00000; font-weight: bold; background: #FFF0F0; padding: 0 4px; border-radius: 4px; }
+        .search-highlight { background-color: #FFE699; color: #C00000; font-weight: bold; padding: 0 2px; border-radius: 3px; }
 
-        /* 表格與試算器優化 */
+        /* 表格與試算器 */
         table { 
             width: 100%; border-collapse: separate; border-spacing: 0; 
             border-radius: 8px; overflow: hidden; margin-top: 10px; 
@@ -158,7 +179,6 @@
         .result-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95em; border-bottom: 1px dashed #eee; padding-bottom: 5px;}
         .result-row.total { font-size: 1.3em; font-weight: bold; color: #C00000; border: none; margin-top: 15px; }
 
-        /* 獵英計畫專屬強調 */
         .eagle-note { background-color: #fcf8e3; border-left: 4px solid #D4AF37; padding: 12px; font-size: 0.9em; margin-bottom: 15px; border-radius: 4px; }
         .eagle-note ul { margin: 5px 0 0 0; padding-left: 20px; }
 
@@ -189,6 +209,11 @@
         <h1>遠銀菁英招募系統</h1>
         <div class="pwa-hint">點選「分享 ➔ 加入主畫面」解鎖全螢幕 App 體驗</div>
     </header>
+
+    <!-- 🔍 智慧搜尋列 -->
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="搜尋關鍵字 (如: 獎金、VIP、獵英...)" onkeyup="searchContent()">
+    </div>
 
     <main class="content-container">
 
@@ -364,7 +389,6 @@
                 </div>
             </details>
 
-            <!-- 獵英計畫專區 -->
             <details>
                 <summary>🦅 新進獵英計畫獎勵與試算</summary>
                 <div class="detail-content">
@@ -425,7 +449,7 @@
 
     </main>
 
-    <!-- App 底部導覽列 (尊榮版) -->
+    <!-- App 底部導覽列 -->
     <nav class="bottom-nav">
         <a class="nav-item active" data-target="Strategy" onclick="openTab(event, 'Strategy')">
             <div class="nav-icon">🎯</div><span>策略</span>
@@ -445,17 +469,84 @@
     </nav>
 
     <script>
+        // 🔍 即時搜尋過濾功能
+        function searchContent() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let activeTab = document.querySelector('.tab-content.active');
+            
+            // 如果搜尋欄沒字，重置所有金邊框架
+            if (input === "") {
+                let allDetails = activeTab.querySelectorAll('details');
+                let allCategoryTitles = activeTab.querySelectorAll('.category-title');
+                
+                allDetails.forEach(d => {
+                    d.style.display = "block";
+                    d.open = false; // 恢復預設收合
+                });
+                
+                allCategoryTitles.forEach(t => t.style.display = "block");
+                return;
+            }
+
+            // 若有字，開始搜尋比對
+            let activeDetails = activeTab.querySelectorAll('details');
+            activeDetails.forEach(detail => {
+                let summaryText = detail.querySelector('summary').innerText.toLowerCase();
+                let contentText = detail.querySelector('.detail-content').innerText.toLowerCase();
+                
+                if (summaryText.includes(input) || contentText.includes(input)) {
+                    detail.style.display = "block"; // 顯示符合的項目
+                    detail.open = true;             // 自動展開讓使用者秒看答案！
+                } else {
+                    detail.style.display = "none";  // 隱藏不符合的項目
+                }
+            });
+
+            // 處理 Q&A 分類標題，若該分類下的題目全被隱藏，則隱藏該標題 (以防畫面太空洞)
+            if (activeTab.id === 'Objections') {
+                let categoryTitles = activeTab.querySelectorAll('.category-title');
+                categoryTitles.forEach(title => {
+                    // 尋找這個標題直到下一個標題之間的所有 details
+                    let nextElem = title.nextElementSibling;
+                    let hasVisibleDetails = false;
+                    while(nextElem && nextElem.tagName === 'DETAILS') {
+                        if (nextElem.style.display !== "none") {
+                            hasVisibleDetails = true;
+                            break;
+                        }
+                        nextElem = nextElem.nextElementSibling;
+                    }
+                    title.style.display = hasVisibleDetails ? "block" : "none";
+                });
+            }
+        }
+
         // 切換分頁邏輯
         function openTab(evt, tabName) {
+            // 切換前，先清空搜尋欄與重置搜尋結果防呆
+            document.getElementById('searchInput').value = "";
+            let allDetails = document.querySelectorAll('details');
+            allDetails.forEach(d => {
+                d.style.display = "block";
+                d.open = false;
+            });
+            let allCategoryTitles = document.querySelectorAll('.category-title');
+            allCategoryTitles.forEach(t => t.style.display = "block");
+
+            // 隱藏所有分頁內容
             var tabcontent = document.getElementsByClassName("tab-content");
             for (var i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
                 tabcontent[i].classList.remove("active");
             }
+
+            // 移除導覽列 active 狀態
             var navItems = document.getElementsByClassName("nav-item");
             for (var i = 0; i < navItems.length; i++) {
                 navItems[i].classList.remove("active");
             }
+
+            // 顯示目標分頁
             document.getElementById(tabName).style.display = "block";
             
             document.getElementById(tabName).style.animation = 'none';
@@ -531,4 +622,4 @@
         }
     </script>
 </body>
-</html
+</html>
